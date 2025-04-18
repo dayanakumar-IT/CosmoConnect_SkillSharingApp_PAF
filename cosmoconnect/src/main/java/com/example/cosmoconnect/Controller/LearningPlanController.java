@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("api/v1/learningplan")
-
 public class LearningPlanController {
-
     @Autowired
     private LearningPlanService learningPlanService;
 
@@ -20,28 +18,24 @@ public class LearningPlanController {
     }
 
     @GetMapping(value = "/getAll")
-    private Iterable<LearningPlan>getLearningPlan()
-    {
+    private Iterable<LearningPlan> getLearningPlan() {
         return learningPlanService.listAll();
     }
 
     @PutMapping(value = "/edit/{id}")
-    private LearningPlan update(@RequestBody LearningPlan learningPlan,@PathVariable(name = "id")String _id)
-    {
-      learningPlan.set_id(_id);
-      learningPlanService.saveorUpdate(learningPlan);
-      return learningPlan;
+    private LearningPlan update(@RequestBody LearningPlan learningPlan, @PathVariable(name = "id") String _id) {
+        learningPlan.set_id(_id);
+        learningPlanService.saveorUpdate(learningPlan);
+        return learningPlan;
     }
 
     @DeleteMapping("/delete/{id}")
-            private void deleteLearningPlan(@PathVariable("id") String _id)
-    {
+    private void deleteLearningPlan(@PathVariable("id") String _id) {
         learningPlanService.deleteLearningPlan(_id);
     }
 
     @RequestMapping("/learningplan/{id}")
-    private LearningPlan getLearningPlan(@PathVariable(name = "id")String learningPlanid)
-    {
+    private LearningPlan getLearningPlan(@PathVariable(name = "id") String learningPlanid) {
         return learningPlanService.getLearningPlanById(learningPlanid);
     }
 }

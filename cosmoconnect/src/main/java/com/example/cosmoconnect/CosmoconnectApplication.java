@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class CosmoconnectApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(CosmoconnectApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CosmoconnectApplication.class, args);
+    }
 
 }
