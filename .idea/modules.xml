@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+        <HEAD></HEAD>
       <module fileurl="file://$PROJECT_DIR$/.idea/CosmoConnect_SkillSharingApp_PAF.iml" filepath="$PROJECT_DIR$/.idea/CosmoConnect_SkillSharingApp_PAF.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/cosmoconnect.iml" filepath="$PROJECT_DIR$/.idea/cosmoconnect.iml" />
+>>>>>>> 04952deb844d893ffb21c8e5182a76c8f42f8420
     </modules>
   </component>
 </project>
