@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pilot Data Form</title>
+    <title>Celestial Object Data Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 50px;
+            background-color: #001f3d;
+            color: #fff;
         }
         .container {
             max-width: 600px;
@@ -15,14 +17,16 @@
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 10px;
-            background-color: #f9f9f9;
+            background-color: #2e3b4e;
         }
         h2 {
             text-align: center;
+            color: #ffcc00;
         }
         label {
             display: block;
             margin: 10px 0 5px;
+            font-size: 1.2em;
         }
         input[type="text"], input[type="number"], input[type="submit"] {
             width: 100%;
@@ -46,16 +50,19 @@
 <body>
 
     <div class="container">
-        <h2>Pilot Information</h2>
+        <h2>Celestial Object Information</h2>
         <form action="/submit" method="POST">
-            <label for="PilotID">Pilot ID:</label>
-            <input type="text" id="PilotID" name="PilotID" required>
+            <label for="ObjectID">Object ID:</label>
+            <input type="text" id="ObjectID" name="ObjectID" required>
 
-            <label for="FullName">Full Name:</label>
-            <input type="text" id="FullName" name="FullName" required>
+            <label for="ObjectName">Object Name:</label>
+            <input type="text" id="ObjectName" name="ObjectName" required>
 
-            <label for="ExperienceYears">Experience Years:</label>
-            <input type="number" id="ExperienceYears" name="ExperienceYears" required>
+            <label for="ObjectType">Object Type (e.g., Star, Planet, Galaxy):</label>
+            <input type="text" id="ObjectType" name="ObjectType" required>
+
+            <label for="DiscoveredYear">Year Discovered:</label>
+            <input type="number" id="DiscoveredYear" name="DiscoveredYear" required>
 
             <input type="submit" value="Submit">
         </form>
