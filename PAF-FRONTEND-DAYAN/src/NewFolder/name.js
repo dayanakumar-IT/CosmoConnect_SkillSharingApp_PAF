@@ -60,7 +60,7 @@ function greet(name) {
             timestamp: new Date().toISOString()
           });
         } else {
-          reject(new Error('Random failure occurred'));
+          reject(new Error('failure occurred'));
         }
       }, 1000);
     });
