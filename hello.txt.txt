@@ -1,2 +1,2 @@
 hello world!
-hi vidu
+add competition details page with countdown timer
