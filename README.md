@@ -16,7 +16,7 @@ A space-themed skill-sharing and learning platform where users can showcase thei
 
 ## 📘 Learning Progress Updates (Space Learning Journey)
 - 📝 Log personal learning progress with media support.
-- 🔒 Keep logs private or 🌍 make milestones public.
+- 🔒 Keep logs private or  make milestones public.
 - 🎖️ Earn badges and showcase progress in profiles.
 - 🤖 AI recommends personalized learning paths.
 - ♻️ Edit, update, or delete progress entries as needed.
