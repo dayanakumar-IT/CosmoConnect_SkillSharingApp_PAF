@@ -4,7 +4,7 @@ A space-themed skill-sharing and learning platform where users can showcase thei
 ---
 
 ## 🔭 Skill Sharing Posts (Space Skill Showroom)
-- 📸 Share photos or 30-second videos of space-related creations.
+- 📸 Share 03 photos or 30-second videos of space-related creations.
 - 🗂️ Tag categories like astrophotography, telescopes, or science projects.
 - 🤖 AI suggests learning resources based on uploads.
 - 🏷️ Auto-generated tags for better discovery.
