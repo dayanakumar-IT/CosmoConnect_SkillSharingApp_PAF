@@ -1,5 +1,5 @@
 # 🚀 Space Skill Showroom & Astro-Creations 🌌  
-A space-themed skill-sharing and learning platform where users can showcase their talents in astrophotography, DIY projects, and space science, while connecting, learning, and growing together through interactive features and competitions.
+A space-themed skill-sharing and learning platform where users can showcase their talents in astrophotography, DIY projects about space, and space science, while connecting, learning, and growing together through interactive features and competitions.
 
 ---
 
