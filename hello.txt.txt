@@ -1,2 +1,2 @@
 hello world!
-add competition details page with countdown timer
+message1
