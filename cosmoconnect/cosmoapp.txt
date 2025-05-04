@@ -9,3 +9,5 @@ Fixed typo in learning plan title field
 Renamed planDate to scheduledDate
 
 Added missing index to userId in plans
+Fixed null check in plan controller
+
