@@ -12,4 +12,4 @@ Added missing index to userId in plans
 Fixed null check in plan controller
 
 Fixed bug in plan topic association
-Changed error code for unauthorized plan edit
+Changed error code for unauthorized plan editImproved logging in plan router
