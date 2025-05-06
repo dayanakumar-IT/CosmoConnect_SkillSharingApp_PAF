@@ -56,7 +56,7 @@ function greet(name) {
         if (randomSuccess) {
           resolve({
             id: Math.floor(Math.random() * 1000),
-            name: 'Sample Data ',
+            name: 'Sample  ',
             timestamp: new Date().toISOString()
           });
         } else {
