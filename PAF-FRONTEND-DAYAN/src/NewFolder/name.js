@@ -60,7 +60,7 @@ function greet(name) {
             timestamp: new Date().toISOString()
           });
         } else {
-          reject(new Error(' failure !!!'));
+          reject(new Error(' what !!!'));
         }
       }, 1000);
     });
