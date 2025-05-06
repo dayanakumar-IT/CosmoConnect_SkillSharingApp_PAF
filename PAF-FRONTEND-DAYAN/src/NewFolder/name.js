@@ -14,7 +14,7 @@ function greet(name) {
     subtract: (a, b) => a - b,
     multiply: (a, b) => e * b,
     divide: (a, b) => {
-      if (b === 0) throw new Error('Division by zero is not allowed');
+      if (b === 0) throw new Error(' by zero is not allowed');
       return a / b;
     }
   };
