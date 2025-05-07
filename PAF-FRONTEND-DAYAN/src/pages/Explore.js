@@ -55,6 +55,13 @@ const suggestedUsers = [
   { name: 'Astro Alex', avatar: 'https://i.pravatar.cc/150?img=60', desc: 'Astrophotographer' },
   { name: 'Luna Lee', avatar: 'https://i.pravatar.cc/150?img=32', desc: 'Lunar Observer' },
   { name: 'Comet Chris', avatar: 'https://i.pravatar.cc/150?img=44', desc: 'Comet Hunter' },
+  { name: 'Star Mapper Mia', avatar: 'https://i.pravatar.cc/150?img=15', desc: 'Star Mapper' },
+  { name: 'Rocket Ron', avatar: 'https://i.pravatar.cc/150?img=18', desc: 'Rocketry Enthusiast' },
+  { name: 'Planet Paige', avatar: 'https://i.pravatar.cc/150?img=28', desc: 'Planetary Scientist' },
+  { name: 'Galaxy Greg', avatar: 'https://i.pravatar.cc/150?img=38', desc: 'Galaxy Explorer' },
+  { name: 'Aurora Amy', avatar: 'https://i.pravatar.cc/150?img=53', desc: 'Aurora Chaser' },
+  { name: 'Meteor Max', avatar: 'https://i.pravatar.cc/150?img=21', desc: 'Meteor Watcher' },
+  { name: 'Solar Sam', avatar: 'https://i.pravatar.cc/150?img=11', desc: 'Solar Observer' },
 ];
 
 const spaceEvents = [
