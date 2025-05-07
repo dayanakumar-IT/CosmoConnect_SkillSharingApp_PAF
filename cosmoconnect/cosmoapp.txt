@@ -27,3 +27,4 @@ fixed alignment issues on edit course page
 improved feedback message styling
 cleaned up margins between form sections
 added border and shadows to course form
+styled empty course list message
