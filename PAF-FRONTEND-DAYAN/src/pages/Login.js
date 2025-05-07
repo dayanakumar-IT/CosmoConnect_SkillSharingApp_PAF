@@ -68,7 +68,7 @@ const Login = () => {
               </div>
             </div>
             <h1 className="text-4xl font-nasa text-white mb-2">
-              COSMIC SKILLS
+              COSMO CONNECT
             </h1>
             <p className="text-lg text-yellow-400">
               Sign in to explore the universe

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
+import Explore from './pages/Explore';
 import Navbar from './components/Navbar';
 import StarField from './components/StarField';
 import NebulaBackground from './components/NebulaBackground';
@@ -86,10 +87,7 @@ function App() {
           element={
             <ProtectedRoute>
               <Layout>
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                  <h1 className="text-3xl font-orbitron text-white mb-8">Explore Universe</h1>
-                  {/* Explore content will go here */}
-                </div>
+                <Explore />
               </Layout>
             </ProtectedRoute>
           } 
