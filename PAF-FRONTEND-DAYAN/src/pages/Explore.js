@@ -117,6 +117,17 @@ const spaceChallenges = [
   'Challenge a friend to a stargazing night!'
 ];
 
+// Space Calendar Events
+const spaceCalendarEvents = [
+  { date: 'Jul 21', title: 'Delta Aquariids Meteor Shower', icon: <FaStar className="text-yellow-400" /> },
+  { date: 'Aug 12', title: 'Perseid Meteor Shower', icon: <FaStar className="text-yellow-400" /> },
+  { date: 'Aug 19', title: 'Blue Moon', icon: <FaMoon className="text-blue-300" /> },
+  { date: 'Sep 18', title: 'Neptune at Opposition', icon: <FaGlobe className="text-blue-400" /> },
+  { date: 'Oct 14', title: 'Annular Solar Eclipse', icon: <FaRocket className="text-space-purple" /> },
+  { date: 'Nov 17', title: 'Leonid Meteor Shower', icon: <FaStar className="text-yellow-400" /> },
+  { date: 'Dec 14', title: 'Geminid Meteor Shower', icon: <FaStar className="text-yellow-400" /> },
+];
+
 const Explore = () => {
   const [reactions, setReactions] = useState(posts.map(() => null));
   const [showPicker, setShowPicker] = useState(posts.map(() => false));
@@ -250,6 +261,22 @@ const Explore = () => {
             >
               <FaStar className="mr-2 animate-spin text-yellow-400 inline" /> Spin for New Challenge
             </button>
+            {/* Space Calendar */}
+            <div className="bg-space-navy border border-space-purple rounded-xl shadow-lg p-5 mt-6">
+              <div className="flex items-center mb-4">
+                <FaCalendarAlt className="text-space-purple mr-2" size={20} />
+                <h3 className="text-lg font-orbitron text-space-purple">Space Calendar</h3>
+              </div>
+              <div className="flex flex-col gap-3">
+                {spaceCalendarEvents.map(event => (
+                  <div key={event.title} className="flex items-center gap-3 bg-gray-900 rounded-lg px-3 py-2 hover:bg-space-purple/20 transition-all">
+                    <span className="bg-space-purple text-white rounded-full px-3 py-1 text-xs font-bold shadow-md border-2 border-white mr-2 min-w-[60px] text-center">{event.date}</span>
+                    <span className="text-xl">{event.icon}</span>
+                    <span className="text-white font-semibold">{event.title}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
             <style>{`
               @keyframes glow-badge {
                 0%, 100% { box-shadow: 0 0 32px 8px #bb86fc44, 0 0 0 0 #fff0; }
