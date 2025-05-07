@@ -37,7 +37,13 @@ const Dashboard = () => {
     following: 64,
     posts: [
       { id: 1, content: "Just captured the Orion Nebula! 🌌 #astrophotography", likes: 45 },
-      { id: 2, content: "Learning about variable stars today. Fascinating stuff! ⭐", likes: 32 }
+      { id: 2, content: "Learning about variable stars today. Fascinating stuff! ⭐", likes: 32 },
+      {
+        id: 3,
+        content: `This photo captures my latest telescope setup under a beautifully clear sky just after sunset. I used a Newtonian reflector on an equatorial mount to begin my deep sky journey. The alignment was perfect, and I managed to track several constellations including Orion and Cassiopeia. This setup marks a major step in my astrophotography learning journey, and I'm excited to explore more targets like the Andromeda Galaxy and star clusters in the coming nights.`,
+        image: "/telescope.jpg",
+        likes: 0
+      }
     ]
   };
 
@@ -125,6 +131,50 @@ const Dashboard = () => {
           }
           [data-tooltip]:hover:before {
             opacity: 1;
+          }
+          @keyframes floatBubble {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+          }
+          .playlist-bubble {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #bb86fc 60%, #6200ee 100%);
+            color: white;
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin: 0 16px;
+            box-shadow: 0 4px 24px rgba(98,0,238,0.15);
+            cursor: pointer;
+            transition: box-shadow 0.3s, transform 0.3s;
+            animation: floatBubble 3s ease-in-out infinite;
+            border: 2px solid transparent;
+            position: relative;
+          }
+          .playlist-bubble.selected {
+            box-shadow: 0 0 24px 8px #bb86fc;
+            border: 2px solid #fff;
+            transform: scale(1.12);
+          }
+          .playlist-bubble .rocket {
+            position: absolute;
+            top: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: top 0.4s;
+          }
+          .playlist-bubble.selected .rocket {
+            top: -40px;
+            animation: rocketLaunch 0.7s linear;
+          }
+          @keyframes rocketLaunch {
+            0% { top: -28px; }
+            50% { top: -60px; }
+            100% { top: -40px; }
           }
         `}
       </style>
@@ -269,20 +319,26 @@ const Dashboard = () => {
                   )}
                   {showPlaylistOptions && (
                     <div className="mt-4 p-4 bg-gray-800 rounded-lg shadow-lg border border-space-purple">
-                      <h3 className="text-lg font-orbitron mb-2 text-white">Add to Learning Playlist</h3>
-                      <select
-                        value={selectedPlaylist}
-                        onChange={(e) => setSelectedPlaylist(e.target.value)}
-                        className="w-full p-2 bg-gray-700 rounded text-white border border-gray-600 focus:border-space-purple focus:outline-none"
-                      >
-                        <option value="">Select a playlist</option>
-                        {playlists.map((playlist) => (
-                          <option key={playlist.id} value={playlist.id}>
-                            {playlist.name}
-                          </option>
+                      <h3 className="text-lg font-orbitron mb-4 text-white">Add to Learning Playlist</h3>
+                      <div className="flex justify-center items-center mb-2">
+                        {playlists.map((playlist, idx) => (
+                          <div
+                            key={playlist.id}
+                            className={`playlist-bubble${selectedPlaylist === playlist.id ? ' selected' : ''}`}
+                            onClick={() => setSelectedPlaylist(playlist.id)}
+                            style={{ animationDelay: `${idx * 0.3}s` }}
+                            data-tooltip={playlist.name}
+                          >
+                            {selectedPlaylist === playlist.id && (
+                              <span className="rocket">
+                                <FaRocket className="text-2xl text-white animate-bounce" />
+                              </span>
+                            )}
+                            <span style={{ zIndex: 2 }}>{playlist.name.split(' ')[0]}</span>
+                          </div>
                         ))}
-                      </select>
-                      <div className="mt-2 text-sm text-gray-400">
+                      </div>
+                      <div className="mt-2 text-sm text-gray-400 text-center">
                         Group your posts into learning series for better organization
                       </div>
                     </div>
@@ -338,6 +394,9 @@ const Dashboard = () => {
                         <h3 className="font-orbitron" style={styles.gradientText}>{user.name}</h3>
                         <span className="text-sm text-gray-400">2h ago</span>
                       </div>
+                      {post.image && (
+                        <img src={post.image} alt="Post" className="w-full max-w-md rounded-lg mt-4 mb-2 object-cover" />
+                      )}
                       <p className="mt-2">{post.content}</p>
                       <div className="mt-4 flex items-center space-x-4">
                         <button className="text-gray-400 hover:text-space-purple transition-colors flex items-center space-x-2">
