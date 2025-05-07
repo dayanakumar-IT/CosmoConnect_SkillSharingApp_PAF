@@ -18,6 +18,21 @@ const Dashboard = () => {
     { id: 'deep-space', name: 'Deep Space Exploration' }
   ]);
 
+  // Interactive state for post actions
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+  const [saved, setSaved] = useState(false);
+  const [showReactions, setShowReactions] = useState(false);
+  const [selectedReaction, setSelectedReaction] = useState(null);
+  const [commentCount, setCommentCount] = useState(0);
+  const reactionEmojis = [
+    { label: 'Like', emoji: '👍' },
+    { label: 'Celebrate', emoji: '🎉' },
+    { label: 'Love', emoji: '❤️' },
+    { label: 'Insightful', emoji: '💡' },
+    { label: 'Starstruck', emoji: '🤩' }
+  ];
+
   // Internal styles for space effects
   const styles = {
     gradientText: {
@@ -36,13 +51,10 @@ const Dashboard = () => {
     followers: 128,
     following: 64,
     posts: [
-      { id: 1, content: "Just captured the Orion Nebula! 🌌 #astrophotography", likes: 45 },
-      { id: 2, content: "Learning about variable stars today. Fascinating stuff! ⭐", likes: 32 },
       {
-        id: 3,
+        id: 1,
         content: `This photo captures my latest telescope setup under a beautifully clear sky just after sunset. I used a Newtonian reflector on an equatorial mount to begin my deep sky journey. The alignment was perfect, and I managed to track several constellations including Orion and Cassiopeia. This setup marks a major step in my astrophotography learning journey, and I'm excited to explore more targets like the Andromeda Galaxy and star clusters in the coming nights.`,
         image: "/telescope.jpg",
-        likes: 0
       }
     ]
   };
@@ -176,6 +188,8 @@ const Dashboard = () => {
             50% { top: -60px; }
             100% { top: -40px; }
           }
+          @keyframes fade-in { from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: none; } }
+          .animate-fade-in { animation: fade-in 0.2s ease; }
         `}
       </style>
 
@@ -398,14 +412,58 @@ const Dashboard = () => {
                         <img src={post.image} alt="Post" className="w-full max-w-md rounded-lg mt-4 mb-2 object-cover" />
                       )}
                       <p className="mt-2">{post.content}</p>
-                      <div className="mt-4 flex items-center space-x-4">
-                        <button className="text-gray-400 hover:text-space-purple transition-colors flex items-center space-x-2">
-                          <FaStar className="inline" />
-                          <span>{post.likes}</span>
+                      <div className="mt-4 flex items-center space-x-6">
+                        {/* Like/Reaction Button */}
+                        <div className="relative">
+                          <button
+                            className={`text-gray-400 hover:text-space-purple transition-colors flex items-center space-x-2 px-2 py-1 rounded ${selectedReaction ? 'bg-gray-700' : ''}`}
+                            onClick={() => setShowReactions(!showReactions)}
+                            data-tooltip="React"
+                          >
+                            <span className="text-xl">
+                              {selectedReaction ? selectedReaction.emoji : '👍'}
+                            </span>
+                            <span>{likeCount > 0 ? likeCount : ''}</span>
+                          </button>
+                          {showReactions && (
+                            <div className="absolute z-10 flex bg-gray-800 rounded shadow-lg p-2 top-10 left-0 animate-fade-in">
+                              {reactionEmojis.map((reaction) => (
+                                <button
+                                  key={reaction.label}
+                                  className="mx-1 text-2xl hover:scale-125 transition-transform"
+                                  onClick={() => {
+                                    setSelectedReaction(reaction);
+                                    setLikeCount(likeCount + 1);
+                                    setShowReactions(false);
+                                  }}
+                                  data-tooltip={reaction.label}
+                                >
+                                  {reaction.emoji}
+                                </button>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                        {/* Save Button */}
+                        <button
+                          className={`text-gray-400 hover:text-space-purple transition-colors flex items-center space-x-2 px-2 py-1 rounded ${saved ? 'bg-gray-700 text-space-purple' : ''}`}
+                          onClick={() => setSaved(!saved)}
+                          data-tooltip={saved ? 'Saved' : 'Save Post'}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-5-7 5V5z" />
+                          </svg>
                         </button>
-                        <button className="text-gray-400 hover:text-space-purple transition-colors flex items-center space-x-2">
-                          <FaCompass className="inline" />
-                          <span>Share</span>
+                        {/* Comment Button */}
+                        <button
+                          className="text-gray-400 hover:text-space-purple transition-colors flex items-center space-x-2 px-2 py-1 rounded"
+                          onClick={() => setCommentCount(commentCount + 1)}
+                          data-tooltip="Comment"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.77 9.77 0 01-4-.8l-4.28 1.07A1 1 0 013 19.13l1.07-4.28A9.77 9.77 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                          </svg>
+                          <span>{commentCount > 0 ? commentCount : ''}</span>
                         </button>
                       </div>
                     </div>
