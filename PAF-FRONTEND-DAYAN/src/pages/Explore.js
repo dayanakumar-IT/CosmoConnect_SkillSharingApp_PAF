@@ -128,6 +128,16 @@ const spaceCalendarEvents = [
   { date: 'Dec 14', title: 'Geminid Meteor Shower', icon: <FaStar className="text-yellow-400" /> },
 ];
 
+// Stories/Status Data
+const stories = [
+  { name: 'You', avatar: 'https://i.pravatar.cc/150?img=60', isAdd: true },
+  { name: 'Stellar Sam', avatar: 'https://i.pravatar.cc/150?img=12', bg: 'from-space-purple to-space-blue' },
+  { name: 'Luna Lee', avatar: 'https://i.pravatar.cc/150?img=32', bg: 'from-blue-400 to-purple-400' },
+  { name: 'Comet Chris', avatar: 'https://i.pravatar.cc/150?img=44', bg: 'from-yellow-400 to-space-purple' },
+  { name: 'Rocket Ron', avatar: 'https://i.pravatar.cc/150?img=18', bg: 'from-green-400 to-blue-400' },
+  { name: 'Aurora Amy', avatar: 'https://i.pravatar.cc/150?img=53', bg: 'from-pink-400 to-space-purple' },
+];
+
 const Explore = () => {
   const [reactions, setReactions] = useState(posts.map(() => null));
   const [showPicker, setShowPicker] = useState(posts.map(() => false));
@@ -288,6 +298,37 @@ const Explore = () => {
         </div>
         {/* Feed */}
         <div className="flex-1 max-w-xl mx-auto space-y-8">
+          {/* Stories/Status Section */}
+          <div className="w-full flex items-center gap-4 overflow-x-auto pb-4 mb-4 scrollbar-hide">
+            {stories.map((story, idx) => (
+              <div
+                key={story.name}
+                className={`flex flex-col items-center cursor-pointer group ${story.isAdd ? '' : 'hover:scale-105 transition-transform'}`}
+              >
+                <div
+                  className={`relative w-16 h-16 rounded-full flex items-center justify-center mb-1 border-4 ${story.isAdd ? 'border-dashed border-space-purple animate-glow-badge' : 'border-transparent'} ${story.bg ? `bg-gradient-to-br ${story.bg}` : 'bg-gray-800'}`}
+                  style={{ boxShadow: story.isAdd ? '0 0 16px 4px #bb86fc88' : '' }}
+                >
+                  <img
+                    src={story.avatar}
+                    alt={story.name}
+                    className={`w-14 h-14 rounded-full border-2 border-white object-cover ${story.isAdd ? 'opacity-80' : ''}`}
+                  />
+                  {story.isAdd && (
+                    <span className="absolute bottom-1 right-1 bg-space-purple text-white rounded-full p-1 shadow-lg animate-bounce">
+                      <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5V7.5H11.5a.5.5 0 0 1 0 1H8.5V11.5a.5.5 0 0 1-1 0V8.5H4.5a.5.5 0 0 1 0-1H7.5V4.5A.5.5 0 0 1 8 4z"/></svg>
+                    </span>
+                  )}
+                  {!story.isAdd && (
+                    <span className="absolute -top-2 -right-2 animate-float-fast">
+                      <FaStar className="text-yellow-400" />
+                    </span>
+                  )}
+                </div>
+                <span className={`text-xs text-white font-semibold ${story.isAdd ? 'text-space-purple' : ''}`}>{story.isAdd ? 'Add Story' : story.name.split(' ')[0]}</span>
+              </div>
+            ))}
+          </div>
           {posts.map((post, idx) => (
             <div key={post.id} className="bg-space-navy rounded-xl shadow-lg border border-space-purple relative">
               <div className="flex items-center px-4 pt-4 pb-2">
