@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { FaUserAstronaut, FaRocket, FaStar, FaCompass, FaChartLine, FaUsers, FaPlus, FaGlobe, FaMoon, FaSatellite, FaSpaceShuttle, FaMeteor, FaAtom } from 'react-icons/fa';
+import { FaUserAstronaut, FaRocket, FaStar, FaCompass, FaChartLine, FaUsers, FaPlus, FaGlobe, FaMoon, FaSatellite, FaSpaceShuttle, FaMeteor, FaAtom, FaImage } from 'react-icons/fa';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('posts');
   const [newPost, setNewPost] = useState('');
   const [hoverCard, setHoverCard] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   // Internal styles for space effects
   const styles = {
@@ -27,6 +28,17 @@ const Dashboard = () => {
       { id: 1, content: "Just captured the Orion Nebula! 🌌 #astrophotography", likes: 45 },
       { id: 2, content: "Learning about variable stars today. Fascinating stuff! ⭐", likes: 32 }
     ]
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setSelectedImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
@@ -154,12 +166,23 @@ const Dashboard = () => {
                       <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110">
                         <FaSatellite className="text-xl text-space-purple" />
                       </button>
+                      <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110">
+                        <input type="file" accept="image/*" className="hidden" id="imageUpload" onChange={(e) => handleImageUpload(e)} />
+                        <label htmlFor="imageUpload" className="cursor-pointer">
+                          <FaImage className="text-xl text-space-purple" />
+                        </label>
+                      </button>
                     </div>
                     <button className="px-4 py-2 bg-space-purple rounded-lg hover:bg-opacity-90 transition-all duration-300 hover:scale-105 flex items-center space-x-2">
                       <FaRocket className="text-lg animate-bounce" />
                       <span>Launch Post</span>
                     </button>
                   </div>
+                  {selectedImage && (
+                    <div className="mt-4">
+                      <img src={selectedImage} alt="Selected" className="w-full h-40 object-cover rounded-lg" />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
