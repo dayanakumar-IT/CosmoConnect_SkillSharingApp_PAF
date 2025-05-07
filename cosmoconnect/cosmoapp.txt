@@ -32,3 +32,4 @@ applied card layout to course list items
 improved checkbox and dropdown style
 added animation on course item hover
 added consistent margin between form fields
+updated course title font for better readability
