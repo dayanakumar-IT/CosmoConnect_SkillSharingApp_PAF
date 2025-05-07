@@ -17,7 +17,7 @@ const Dashboard = () => {
 
   const user = {
     name: "Astro Explorer",
-    profilePic: "https://i.pravatar.cc/150?img=45",
+    profilePic: "https://i.pravatar.cc/150?img=60",
     summary: "Passionate about exploring the cosmos and sharing astronomical knowledge. Currently learning about deep space objects and astrophotography.",
     skills: ["Telescope Operation", "Astrophotography", "Star Mapping"],
     progress: 75,
