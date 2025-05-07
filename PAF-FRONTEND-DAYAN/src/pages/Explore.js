@@ -163,47 +163,56 @@ const Explore = () => {
         {/* Left Sidebar: Mini Space Quiz or Daily Fact */}
         <div className="w-full lg:w-80 flex flex-col gap-8 mt-8 lg:mt-0">
           <div className="bg-space-navy border border-space-purple rounded-xl shadow-lg p-5 relative overflow-hidden">
-            {/* Floating space icons */}
-            <FaRocket className="absolute left-2 top-2 text-space-purple animate-float-slow" size={28} />
-            <FaStar className="absolute right-4 top-8 text-yellow-400 animate-float-fast" size={20} />
-            <FaGlobe className="absolute left-8 bottom-6 text-blue-400 animate-float-medium" size={22} />
-            <FaMoon className="absolute right-8 bottom-4 text-gray-300 animate-float-medium" size={22} />
-            <h3 className="text-lg font-orbitron text-space-purple mb-4">{showQuiz ? 'Mini Space Quiz' : 'Astronomy Fact'}</h3>
-            {showQuiz ? (
-              <>
-                <div className="text-white font-semibold mb-3">{quizQuestions[quizIdx].question}</div>
-                <div className="flex flex-col gap-2">
-                  {quizQuestions[quizIdx].options.map(option => (
-                    <button
-                      key={option}
-                      onClick={() => handleQuizOption(option)}
-                      disabled={!!quizResult}
-                      className={`px-3 py-2 rounded-lg text-left font-bold transition-all border border-space-purple bg-gray-800 text-white hover:bg-space-purple hover:text-white ${selectedOption === option ? (quizResult === 'correct' ? 'bg-green-500 text-white' : 'bg-red-500 text-white') : ''}`}
-                    >
-                      {option}
-                    </button>
-                  ))}
-                </div>
-                {quizResult && (
-                  <div className="mt-4 flex items-center justify-center">
-                    {quizResult === 'correct' ? (
-                      <span className="flex items-center text-green-400 font-bold animate-bounce">
-                        <FaStar className="mr-2 animate-spin" /> Correct!
-                      </span>
-                    ) : (
-                      <span className="flex items-center text-red-400 font-bold animate-pulse">
-                        <FaRocket className="mr-2 animate-float-fast" /> Try Again!
-                      </span>
-                    )}
+            {/* Decorative floating icons in corners with opacity */}
+            <FaRocket className="absolute left-2 top-2 text-space-purple animate-float-slow opacity-30" size={32} />
+            <FaStar className="absolute right-2 top-2 text-yellow-400 animate-float-fast opacity-30" size={24} />
+            <FaGlobe className="absolute left-2 bottom-2 text-blue-400 animate-float-medium opacity-30" size={24} />
+            <FaMoon className="absolute right-2 bottom-2 text-gray-300 animate-float-medium opacity-30" size={24} />
+            {/* Title row */}
+            <div className="flex items-center justify-between mb-4 z-10 relative">
+              <span className="flex items-center text-lg font-orbitron text-space-purple">
+                {showQuiz ? <FaStar className="mr-2 animate-spin text-yellow-400" /> : <FaRocket className="mr-2 animate-float-slow text-space-purple" />} 
+                {showQuiz ? 'Mini Space Quiz' : 'Astronomy Fact'}
+              </span>
+            </div>
+            {/* Main content */}
+            <div className="flex flex-col items-center justify-center z-10 relative">
+              {showQuiz ? (
+                <>
+                  <div className="text-white font-semibold mb-3 text-center">{quizQuestions[quizIdx].question}</div>
+                  <div className="flex flex-col gap-2 w-full">
+                    {quizQuestions[quizIdx].options.map(option => (
+                      <button
+                        key={option}
+                        onClick={() => handleQuizOption(option)}
+                        disabled={!!quizResult}
+                        className={`px-3 py-2 rounded-lg text-left font-bold transition-all border border-space-purple bg-gray-800 text-white hover:bg-space-purple hover:text-white w-full ${selectedOption === option ? (quizResult === 'correct' ? 'bg-green-500 text-white' : 'bg-red-500 text-white') : ''}`}
+                      >
+                        {option}
+                      </button>
+                    ))}
                   </div>
-                )}
-              </>
-            ) : (
-              <div className="text-white font-semibold flex items-center min-h-[60px]">
-                <FaStar className="mr-2 animate-spin text-yellow-400" />
-                {astronomyFacts[factIdx]}
-              </div>
-            )}
+                  {quizResult && (
+                    <div className="mt-4 flex items-center justify-center">
+                      {quizResult === 'correct' ? (
+                        <span className="flex items-center text-green-400 font-bold animate-bounce">
+                          <FaStar className="mr-2 animate-spin" /> Correct!
+                        </span>
+                      ) : (
+                        <span className="flex items-center text-red-400 font-bold animate-pulse">
+                          <FaRocket className="mr-2 animate-float-fast" /> Try Again!
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="text-white font-semibold text-center min-h-[60px] flex flex-col items-center justify-center">
+                  <span className="mb-2"><FaStar className="animate-spin text-yellow-400" size={22} /></span>
+                  <span>{astronomyFacts[factIdx]}</span>
+                </div>
+              )}
+            </div>
           </div>
         </div>
         {/* Feed */}
