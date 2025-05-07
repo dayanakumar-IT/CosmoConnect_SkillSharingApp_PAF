@@ -230,14 +230,17 @@ const Explore = () => {
           </div>
           {/* Daily Space Challenge - Unique Circular Badge UI */}
           <div className="flex flex-col items-center justify-center mt-4">
-            <div className="relative flex flex-col items-center justify-center">
+            {/* Title and icon above the circle */}
+            <div className="flex items-center mb-3">
+              <FaRocket className="text-space-purple animate-float-slow mr-2" size={22} />
+              <h3 className="text-lg font-orbitron text-space-purple">Daily Space Challenge</h3>
+            </div>
+            <div className="relative flex flex-col items-center justify-center mb-2">
               {/* Glowing animated border */}
               <div className="absolute rounded-full w-44 h-44 bg-gradient-to-tr from-space-purple via-space-blue to-yellow-400 opacity-60 animate-glow-badge z-0" />
-              {/* Main circle */}
-              <div className="relative w-40 h-40 bg-gradient-to-br from-space-navy via-gray-900 to-space-purple rounded-full shadow-2xl flex flex-col items-center justify-center z-10 border-4 border-space-purple">
-                <FaRocket className="text-space-purple animate-float-slow mb-2" size={38} />
-                <h3 className="text-base font-orbitron text-space-purple mb-2">Daily Space Challenge</h3>
-                <div className="text-white text-center font-semibold px-4" style={{ lineHeight: '1.3' }}>
+              {/* Main circle with only challenge text */}
+              <div className="relative w-40 h-40 bg-gradient-to-br from-space-navy via-gray-900 to-space-purple rounded-full shadow-2xl flex items-center justify-center z-10 border-4 border-space-purple">
+                <div className="text-white text-center font-semibold px-6" style={{ lineHeight: '1.4', fontSize: '1.1rem' }}>
                   {spaceChallenges[Math.floor((Date.now()/8.64e7)%spaceChallenges.length)]}
                 </div>
               </div>
