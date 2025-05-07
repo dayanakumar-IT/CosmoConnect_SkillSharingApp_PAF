@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaRegCommentDots, FaShare, FaEllipsisH, FaBookmark, FaRegBookmark, FaUserPlus, FaCalendarAlt, FaBell, FaRocket, FaStar, FaGlobe, FaMoon, FaTrash } from 'react-icons/fa';
+import { FaRegCommentDots, FaShare, FaEllipsisH, FaBookmark, FaRegBookmark, FaUserPlus, FaCalendarAlt, FaBell, FaRocket, FaStar, FaGlobe, FaMoon, FaTrash, FaEdit } from 'react-icons/fa';
 
 const posts = [
   {
@@ -165,6 +165,8 @@ const Explore = () => {
   const [showComments, setShowComments] = useState(posts.map(() => false));
   const [comments, setComments] = useState(initialComments);
   const [commentInputs, setCommentInputs] = useState(posts.map(() => ''));
+  // Edit comment state
+  const [editingComment, setEditingComment] = useState({ postIdx: null, commentId: null, text: '' });
 
   const handleReaction = (idx, reaction) => {
     const newReactions = [...reactions];
@@ -229,6 +231,24 @@ const Explore = () => {
     const newComments = [...comments];
     newComments[postIdx] = newComments[postIdx].filter(c => c.id !== commentId);
     setComments(newComments);
+  };
+
+  const handleEditComment = (postIdx, comment) => {
+    setEditingComment({ postIdx, commentId: comment.id, text: comment.text });
+  };
+
+  const handleSaveEdit = () => {
+    const { postIdx, commentId, text } = editingComment;
+    if (!text.trim()) return;
+    const newComments = [...comments];
+    const idx = newComments[postIdx].findIndex(c => c.id === commentId);
+    if (idx !== -1) newComments[postIdx][idx].text = text;
+    setComments(newComments);
+    setEditingComment({ postIdx: null, commentId: null, text: '' });
+  };
+
+  const handleCancelEdit = () => {
+    setEditingComment({ postIdx: null, commentId: null, text: '' });
   };
 
   return (
@@ -453,15 +473,39 @@ const Explore = () => {
                         <div key={c.id} className="flex items-center mb-2">
                           <img src={c.user.avatar} alt={c.user.name} className="w-7 h-7 rounded-full mr-2 border border-space-purple" />
                           <span className="text-white font-semibold mr-2">{c.user.name}</span>
-                          <span className="text-gray-300 mr-2">{c.text}</span>
-                          {c.user.name === 'You' && (
-                            <button
-                              onClick={() => handleDeleteComment(idx, c.id)}
-                              className="text-red-400 hover:text-red-600 ml-1"
-                              title="Delete Comment"
-                            >
-                              <FaTrash />
-                            </button>
+                          {editingComment.postIdx === idx && editingComment.commentId === c.id ? (
+                            <>
+                              <input
+                                value={editingComment.text}
+                                onChange={e => setEditingComment({ ...editingComment, text: e.target.value })}
+                                className="bg-gray-800 text-white rounded px-2 py-1 mr-2"
+                                autoFocus
+                              />
+                              <button onClick={handleSaveEdit} className="text-green-400 mr-1" title="Save"><FaEdit /></button>
+                              <button onClick={handleCancelEdit} className="text-gray-400" title="Cancel">Cancel</button>
+                            </>
+                          ) : (
+                            <>
+                              <span className="text-gray-300 mr-2">{c.text}</span>
+                              {c.user.name === 'You' && (
+                                <>
+                                  <button
+                                    onClick={() => handleEditComment(idx, c)}
+                                    className="text-yellow-400 hover:text-yellow-600 ml-1"
+                                    title="Edit Comment"
+                                  >
+                                    <FaEdit />
+                                  </button>
+                                  <button
+                                    onClick={() => handleDeleteComment(idx, c.id)}
+                                    className="text-red-400 hover:text-red-600 ml-1"
+                                    title="Delete Comment"
+                                  >
+                                    <FaTrash />
+                                  </button>
+                                </>
+                              )}
+                            </>
                           )}
                         </div>
                       ))}
