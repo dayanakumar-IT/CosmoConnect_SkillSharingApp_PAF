@@ -19,3 +19,4 @@ create user dashboard page
 update global styles and theme colors
 refine layout spacing and alignment across components
 
+tweaked button styles to match theme
