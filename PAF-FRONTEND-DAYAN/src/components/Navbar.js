@@ -10,7 +10,8 @@ import {
   FaTimes,
   FaCog,
   FaSignOutAlt,
-  FaUser
+  FaUser,
+  FaStar
 } from 'react-icons/fa';
 
 const Navbar = () => {
@@ -22,7 +23,8 @@ const Navbar = () => {
     { path: '/feed', icon: <FaHome />, label: 'Feed' },
     { path: '/learning', icon: <FaRocket />, label: 'Learn' },
     { path: '/competitions', icon: <FaTrophy />, label: 'Compete' },
-    { path: '/explore', icon: <FaCompass />, label: 'Explore' }
+    { path: '/explore', icon: <FaCompass />, label: 'Explore' },
+    { path: '/posts', icon: <FaStar />, label: 'Posts' }
   ];
 
   const dropdownItems = [
