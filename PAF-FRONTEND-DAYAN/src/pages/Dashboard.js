@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaUserAstronaut, FaRocket, FaStar, FaCompass, FaChartLine, FaUsers, FaPlus, FaGlobe, FaMoon, FaSatellite, FaSpaceShuttle, FaMeteor, FaAtom, FaImage, FaPoll, FaTrash } from 'react-icons/fa';
+import { FaUserAstronaut, FaRocket, FaStar, FaCompass, FaChartLine, FaUsers, FaPlus, FaGlobe, FaMoon, FaList, FaSpaceShuttle, FaMeteor, FaAtom, FaImage, FaPoll, FaTrash } from 'react-icons/fa';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('posts');
@@ -10,6 +10,13 @@ const Dashboard = () => {
   const [collaborate, setCollaborate] = useState(false);
   const [showPollBuilder, setShowPollBuilder] = useState(false);
   const [pollOptions, setPollOptions] = useState(['', '']);
+  const [showPlaylistOptions, setShowPlaylistOptions] = useState(false);
+  const [selectedPlaylist, setSelectedPlaylist] = useState('');
+  const [playlists] = useState([
+    { id: 'telescope-basics', name: 'Telescope Basics Series' },
+    { id: 'star-mapping', name: 'Star Mapping Guide' },
+    { id: 'deep-space', name: 'Deep Space Exploration' }
+  ]);
 
   // Internal styles for space effects
   const styles = {
@@ -99,6 +106,26 @@ const Dashboard = () => {
             position: relative;
             overflow: hidden;
           }
+          
+          [data-tooltip]:before {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 5px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+          }
+          [data-tooltip]:hover:before {
+            opacity: 1;
+          }
         `}
       </style>
 
@@ -177,22 +204,26 @@ const Dashboard = () => {
                   />
                   <div className="flex justify-between items-center mt-4">
                     <div className="flex space-x-4">
-                      <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110" title="Globe">
+                      <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110" data-tooltip="Globe">
                         <FaGlobe className="text-xl text-white" />
                       </button>
-                      <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110" title="Moon">
+                      <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110" data-tooltip="Moon">
                         <FaMoon className="text-xl text-white" />
                       </button>
-                      <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110" title="Satellite">
-                        <FaSatellite className="text-xl text-white" />
+                      <button 
+                        className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110" 
+                        data-tooltip="Add to Playlist"
+                        onClick={() => setShowPlaylistOptions(!showPlaylistOptions)}
+                      >
+                        <FaList className="text-xl text-white" />
                       </button>
-                      <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110" title="Upload Media">
+                      <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110" data-tooltip="Upload Media">
                         <input type="file" accept="image/*,video/*" className="hidden" id="mediaUpload" onChange={(e) => handleMediaUpload(e)} />
                         <label htmlFor="mediaUpload" className="cursor-pointer">
                           <FaImage className="text-xl text-white" />
                         </label>
                       </button>
-                      <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110" onClick={() => setShowPollBuilder(!showPollBuilder)} title="Create Poll">
+                      <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110" onClick={() => setShowPollBuilder(!showPollBuilder)} data-tooltip="Create Poll">
                         <FaPoll className="text-xl text-white" />
                       </button>
                     </div>
@@ -217,7 +248,7 @@ const Dashboard = () => {
                     </div>
                   )}
                   {showPollBuilder && (
-                    <div className="mt-4 p-4 bg-gray-800 rounded-lg shadow-lg">
+                    <div className="mt-4 p-4 bg-gray-800 rounded-lg shadow-lg border border-space-purple">
                       <h3 className="text-lg font-orbitron mb-2 text-white">Create a Poll</h3>
                       {pollOptions.map((option, index) => (
                         <div key={index} className="flex items-center space-x-2 mb-2">
@@ -226,14 +257,34 @@ const Dashboard = () => {
                             value={option}
                             onChange={(e) => handlePollOptionChange(index, e.target.value)}
                             placeholder={`Option ${index + 1}`}
-                            className="w-full p-2 bg-gray-700 rounded text-white"
+                            className="w-full p-2 bg-gray-700 rounded text-white border border-gray-600 focus:border-space-purple focus:outline-none"
                           />
-                          <button onClick={() => removePollOption(index)} className="p-2 text-red-500" title="Remove Option">
+                          <button onClick={() => removePollOption(index)} className="p-2 text-red-500 hover:text-red-700" data-tooltip="Remove Option">
                             <FaTrash className="text-xl" />
                           </button>
                         </div>
                       ))}
-                      <button onClick={addPollOption} className="mt-2 p-2 bg-space-purple rounded text-white">Add Option</button>
+                      <button onClick={addPollOption} className="mt-2 p-2 bg-space-purple rounded text-white hover:bg-opacity-90 transition-all duration-300">Add Option</button>
+                    </div>
+                  )}
+                  {showPlaylistOptions && (
+                    <div className="mt-4 p-4 bg-gray-800 rounded-lg shadow-lg border border-space-purple">
+                      <h3 className="text-lg font-orbitron mb-2 text-white">Add to Learning Playlist</h3>
+                      <select
+                        value={selectedPlaylist}
+                        onChange={(e) => setSelectedPlaylist(e.target.value)}
+                        className="w-full p-2 bg-gray-700 rounded text-white border border-gray-600 focus:border-space-purple focus:outline-none"
+                      >
+                        <option value="">Select a playlist</option>
+                        {playlists.map((playlist) => (
+                          <option key={playlist.id} value={playlist.id}>
+                            {playlist.name}
+                          </option>
+                        ))}
+                      </select>
+                      <div className="mt-2 text-sm text-gray-400">
+                        Group your posts into learning series for better organization
+                      </div>
                     </div>
                   )}
                 </div>
@@ -313,7 +364,7 @@ const Dashboard = () => {
                     {[
                       { name: 'Telescope Basics', status: 'Completed', icon: <FaAtom /> },
                       { name: 'Star Mapping', status: 'In Progress', icon: <FaCompass /> },
-                      { name: 'Deep Space Objects', status: 'Not Started', icon: <FaSatellite /> }
+                      { name: 'Deep Space Objects', status: 'Not Started', icon: <FaCompass /> }
                     ].map((course, index) => (
                       <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-gray-800 hover-card">
                         <div className="flex items-center space-x-3">
