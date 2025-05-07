@@ -138,6 +138,18 @@ const stories = [
   { name: 'Aurora Amy', avatar: 'https://i.pravatar.cc/150?img=53', bg: 'from-pink-400 to-space-purple' },
 ];
 
+// Demo comments for posts
+const initialComments = [
+  [
+    { id: 1, user: { name: 'Luna Lee', avatar: 'https://i.pravatar.cc/150?img=32' }, text: 'Amazing shot!' },
+    { id: 2, user: { name: 'Comet Chris', avatar: 'https://i.pravatar.cc/150?img=44' }, text: 'What camera did you use?' }
+  ],
+  [
+    { id: 1, user: { name: 'Rocket Ron', avatar: 'https://i.pravatar.cc/150?img=18' }, text: 'Saturn is my favorite!' }
+  ],
+  []
+];
+
 const Explore = () => {
   const [reactions, setReactions] = useState(posts.map(() => null));
   const [showPicker, setShowPicker] = useState(posts.map(() => false));
@@ -149,6 +161,10 @@ const Explore = () => {
   const [quizIdx] = useState(Math.floor(Math.random() * quizQuestions.length));
   const [selectedOption, setSelectedOption] = useState(null);
   const [quizResult, setQuizResult] = useState(null);
+  // Comments state
+  const [showComments, setShowComments] = useState(posts.map(() => false));
+  const [comments, setComments] = useState(initialComments);
+  const [commentInputs, setCommentInputs] = useState(posts.map(() => ''));
 
   const handleReaction = (idx, reaction) => {
     const newReactions = [...reactions];
@@ -189,6 +205,24 @@ const Explore = () => {
       setSelectedOption(null);
       // Optionally, show a new quiz/fact
     }, 1800);
+  };
+
+  const handleShowComments = idx => {
+    const newShow = posts.map((_, i) => i === idx ? !showComments[idx] : false);
+    setShowComments(newShow);
+  };
+
+  const handleAddComment = idx => {
+    if (!commentInputs[idx].trim()) return;
+    const newComments = [...comments];
+    newComments[idx] = [
+      ...newComments[idx],
+      { id: Date.now(), user: { name: 'You', avatar: 'https://i.pravatar.cc/150?img=60' }, text: commentInputs[idx] }
+    ];
+    setComments(newComments);
+    const newInputs = [...commentInputs];
+    newInputs[idx] = '';
+    setCommentInputs(newInputs);
   };
 
   return (
@@ -388,16 +422,53 @@ const Explore = () => {
                     {saved[idx] ? <FaBookmark /> : <FaRegBookmark />}
                   </button>
                   {/* Comment Icon */}
-                  <div className="flex items-center text-2xl text-blue-300">
+                  <button
+                    className="flex items-center text-2xl text-blue-300 hover:text-space-purple transition-colors"
+                    onClick={() => handleShowComments(idx)}
+                    title="View/Add Comments"
+                  >
                     <FaRegCommentDots className="mr-2" />
-                    <span className="text-base">{post.comments}</span>
-                  </div>
+                    <span className="text-base">{comments[idx].length}</span>
+                  </button>
                   {/* Share Icon */}
                   <div className="flex items-center text-2xl text-yellow-400">
                     <FaShare className="mr-2" />
                     <span className="text-base">{post.shares}</span>
                   </div>
                 </div>
+                {/* Comments Section */}
+                {showComments[idx] && (
+                  <div className="bg-gray-900 rounded-lg p-3 mt-4">
+                    <div className="mb-2">
+                      {comments[idx].length === 0 && (
+                        <div className="text-gray-400 text-sm">No comments yet. Be the first to comment!</div>
+                      )}
+                      {comments[idx].map((c) => (
+                        <div key={c.id} className="flex items-center mb-2">
+                          <img src={c.user.avatar} alt={c.user.name} className="w-7 h-7 rounded-full mr-2 border border-space-purple" />
+                          <span className="text-white font-semibold mr-2">{c.user.name}</span>
+                          <span className="text-gray-300">{c.text}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex items-center mt-2">
+                      <input
+                        value={commentInputs[idx]}
+                        onChange={e => {
+                          const newInputs = [...commentInputs];
+                          newInputs[idx] = e.target.value;
+                          setCommentInputs(newInputs);
+                        }}
+                        placeholder="Add a comment..."
+                        className="bg-gray-800 text-white rounded px-2 py-1 flex-1 mr-2"
+                      />
+                      <button
+                        onClick={() => handleAddComment(idx)}
+                        className="text-space-purple font-bold px-3 py-1 rounded hover:bg-space-purple hover:text-white transition-all"
+                      >Post</button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           ))}
