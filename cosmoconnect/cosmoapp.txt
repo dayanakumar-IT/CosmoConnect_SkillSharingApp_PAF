@@ -31,3 +31,4 @@ styled empty course list message
 applied card layout to course list items
 improved checkbox and dropdown style
 styled submit and cancel buttons on course form
+added divider between course info and action buttons
