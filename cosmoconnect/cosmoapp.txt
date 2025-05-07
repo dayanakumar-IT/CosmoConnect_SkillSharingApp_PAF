@@ -15,3 +15,5 @@ Fixed bug in plan topic association
 Changed error code for unauthorized plan editImproved logging in plan router
 Changed error code for unauthorized plan edit
 Fixed bug in plan topic association
+
+initialize frontend for CosmoConnect app
