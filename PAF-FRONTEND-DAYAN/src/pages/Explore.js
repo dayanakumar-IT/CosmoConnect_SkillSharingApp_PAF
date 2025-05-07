@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaRegThumbsUp, FaRegCommentDots, FaShare, FaEllipsisH } from 'react-icons/fa';
+import { FaRegCommentDots, FaShare, FaEllipsisH, FaBookmark, FaRegBookmark } from 'react-icons/fa';
 
 const posts = [
   {
@@ -43,13 +43,34 @@ const posts = [
   },
 ];
 
-const Explore = () => {
-  const [likeCounts, setLikeCounts] = useState(posts.map(p => p.likes));
+const emojiReactions = [
+  { label: 'Like', emoji: '👍', color: 'text-blue-400' },
+  { label: 'Love', emoji: '❤️', color: 'text-red-400' },
+  { label: 'Celebrate', emoji: '🎉', color: 'text-yellow-400' },
+  { label: 'Starstruck', emoji: '🤩', color: 'text-purple-400' },
+];
 
-  const handleLike = idx => {
-    const newLikes = [...likeCounts];
-    newLikes[idx] = newLikes[idx] + 1;
-    setLikeCounts(newLikes);
+const Explore = () => {
+  const [reactions, setReactions] = useState(posts.map(() => null));
+  const [showPicker, setShowPicker] = useState(posts.map(() => false));
+  const [saved, setSaved] = useState(posts.map(() => false));
+
+  const handleReaction = (idx, reaction) => {
+    const newReactions = [...reactions];
+    newReactions[idx] = reaction;
+    setReactions(newReactions);
+    setShowPicker(posts.map(() => false));
+  };
+
+  const handleShowPicker = idx => {
+    const newShow = posts.map((_, i) => i === idx ? !showPicker[idx] : false);
+    setShowPicker(newShow);
+  };
+
+  const handleSave = idx => {
+    const newSaved = [...saved];
+    newSaved[idx] = !newSaved[idx];
+    setSaved(newSaved);
   };
 
   return (
@@ -64,30 +85,65 @@ const Explore = () => {
                 <span className="text-xs text-gray-400">{post.time} ago</span>
               </div>
               <button className="text-gray-400 hover:text-space-purple p-2 rounded-full">
-                <FaEllipsisH />
+                <FaEllipsisH size={22} />
               </button>
             </div>
             <img src={post.image} alt="space" className="w-full object-cover max-h-96" />
             <div className="p-4">
               <p className="mb-2 text-white">{post.desc}</p>
               <div className="flex items-center space-x-8 mt-4">
-                <button onClick={() => handleLike(idx)} className="flex items-center text-gray-300 hover:text-blue-400">
-                  <FaRegThumbsUp className="mr-2" />
-                  <span>{likeCounts[idx]}</span>
-                </button>
-                <div className="flex items-center text-gray-300">
-                  <FaRegCommentDots className="mr-2" />
-                  <span>{post.comments}</span>
+                {/* Emoji Like/Reaction */}
+                <div className="relative">
+                  <button
+                    onClick={() => handleShowPicker(idx)}
+                    className={`flex items-center text-2xl px-2 py-1 rounded-lg ${reactions[idx] ? 'bg-gray-800' : ''} hover:bg-gray-800 transition-all`}
+                  >
+                    <span className={reactions[idx]?.color || 'text-blue-400'}>
+                      {reactions[idx]?.emoji || '👍'}
+                    </span>
+                  </button>
+                  {showPicker[idx] && (
+                    <div className="absolute z-10 flex bg-gray-900 rounded shadow-lg p-2 top-12 left-0 animate-fade-in">
+                      {emojiReactions.map((reaction) => (
+                        <button
+                          key={reaction.label}
+                          className={`mx-1 text-2xl hover:scale-125 transition-transform ${reaction.color}`}
+                          onClick={() => handleReaction(idx, reaction)}
+                          title={reaction.label}
+                        >
+                          {reaction.emoji}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
-                <div className="flex items-center text-gray-300">
+                {/* Save Icon */}
+                <button
+                  onClick={() => handleSave(idx)}
+                  className={`text-2xl px-2 py-1 rounded-lg ${saved[idx] ? 'text-space-purple' : 'text-gray-400'} hover:text-space-purple transition-all`}
+                  title={saved[idx] ? 'Saved' : 'Save Post'}
+                >
+                  {saved[idx] ? <FaBookmark /> : <FaRegBookmark />}
+                </button>
+                {/* Comment Icon */}
+                <div className="flex items-center text-2xl text-blue-300">
+                  <FaRegCommentDots className="mr-2" />
+                  <span className="text-base">{post.comments}</span>
+                </div>
+                {/* Share Icon */}
+                <div className="flex items-center text-2xl text-yellow-400">
                   <FaShare className="mr-2" />
-                  <span>{post.shares}</span>
+                  <span className="text-base">{post.shares}</span>
                 </div>
               </div>
             </div>
           </div>
         ))}
       </div>
+      <style>{`
+        @keyframes fade-in { from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: none; } }
+        .animate-fade-in { animation: fade-in 0.2s ease; }
+      `}</style>
     </div>
   );
 };
