@@ -104,6 +104,20 @@ const quizQuestions = [
   },
 ];
 
+// Daily Space Challenges
+const spaceChallenges = [
+  'Spot a planet in the night sky and share a photo!',
+  'Draw or photograph your favorite constellation.',
+  'Share a fun fact about a galaxy you love.',
+  'Try to identify the phase of the Moon tonight.',
+  'Find and share a news article about a recent space mission.',
+  'Observe the International Space Station if it passes over your area.',
+  'Share your favorite astronomy app or tool.',
+  'Write a short poem about the stars.',
+  'Share a picture of your telescope or binoculars setup.',
+  'Challenge a friend to a stargazing night!'
+];
+
 const Explore = () => {
   const [reactions, setReactions] = useState(posts.map(() => null));
   const [showPicker, setShowPicker] = useState(posts.map(() => false));
@@ -212,6 +226,20 @@ const Explore = () => {
                   <span>{astronomyFacts[factIdx]}</span>
                 </div>
               )}
+            </div>
+          </div>
+          {/* Daily Space Challenge */}
+          <div className="bg-space-navy border border-space-purple rounded-xl shadow-lg p-5 relative overflow-hidden mt-4">
+            <div className="flex items-center mb-3">
+              <FaRocket className="text-space-purple animate-float-slow mr-2" size={22} />
+              <h3 className="text-lg font-orbitron text-space-purple">Daily Space Challenge</h3>
+            </div>
+            <div className="flex items-center text-white font-semibold text-center min-h-[48px]">
+              <FaStar className="mr-2 animate-spin text-yellow-400" size={18} />
+              <span>{spaceChallenges[Math.floor((Date.now()/8.64e7)%spaceChallenges.length)]}</span>
+            </div>
+            <div className="absolute right-3 bottom-2 opacity-20">
+              <FaMoon className="animate-float-medium text-gray-300" size={28} />
             </div>
           </div>
         </div>
