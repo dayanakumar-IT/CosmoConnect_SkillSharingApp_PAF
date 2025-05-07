@@ -85,7 +85,7 @@ const Explore = () => {
     <div className="min-h-screen bg-space-dark pt-20 pb-10">
       <div className="max-w-xl mx-auto space-y-8">
         {posts.map((post, idx) => (
-          <div key={post.id} className="bg-space-navy rounded-xl shadow-lg border border-space-purple overflow-hidden relative">
+          <div key={post.id} className="bg-space-navy rounded-xl shadow-lg border border-space-purple relative">
             <div className="flex items-center px-4 pt-4 pb-2">
               <img src={post.user.avatar} alt="avatar" className="w-10 h-10 rounded-full mr-3 border-2 border-space-purple" />
               <div className="flex-1">
@@ -111,7 +111,8 @@ const Explore = () => {
                     </span>
                   </button>
                   {showPicker[idx] && (
-                    <div className="absolute z-10 flex bg-gray-900 rounded shadow-lg p-2 top-12 left-0 animate-fade-in">
+                    <div className="fixed z-50 flex bg-gray-900 rounded shadow-lg p-2 animate-fade-in"
+                         style={{ top: `${window.scrollY + 120 + idx * 180}px`, left: '50%', transform: 'translateX(-50%)' }}>
                       {emojiReactions.map((reaction) => (
                         <button
                           key={reaction.label}
