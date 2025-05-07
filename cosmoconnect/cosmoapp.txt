@@ -25,3 +25,4 @@ added hover effects to course button
  made form inputs look consistent
 fixed alignment issues on edit course page
 improved feedback message styling
+cleaned up margins between form sections
