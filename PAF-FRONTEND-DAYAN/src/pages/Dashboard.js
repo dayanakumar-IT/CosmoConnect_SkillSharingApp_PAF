@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaUserAstronaut, FaRocket, FaStar, FaCompass, FaChartLine, FaUsers, FaPlus, FaGlobe, FaMoon, FaList, FaSpaceShuttle, FaMeteor, FaAtom, FaImage, FaPoll, FaTrash } from 'react-icons/fa';
+import { FaUserAstronaut, FaRocket, FaStar, FaCompass, FaChartLine, FaUsers, FaPlus, FaGlobe, FaMoon, FaList, FaSpaceShuttle, FaMeteor, FaAtom, FaImage, FaPoll, FaTrash, FaEllipsisV, FaEdit } from 'react-icons/fa';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('posts');
@@ -85,6 +85,10 @@ const Dashboard = () => {
     const newOptions = pollOptions.filter((_, i) => i !== index);
     setPollOptions(newOptions);
   };
+
+  const [showMenu, setShowMenu] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [postDeleted, setPostDeleted] = useState(false);
 
   return (
     <div className="min-h-screen bg-space-dark text-star-white pt-20">
@@ -190,6 +194,14 @@ const Dashboard = () => {
           }
           @keyframes fade-in { from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: none; } }
           .animate-fade-in { animation: fade-in 0.2s ease; }
+          @keyframes crash {
+            0% { transform: rotate(-10deg) translateY(-10px) scale(1.1); }
+            30% { transform: rotate(10deg) translateY(10px) scale(1.2); }
+            60% { transform: rotate(-15deg) translateY(-5px) scale(1.1); }
+            80% { transform: rotate(0deg) translateY(0px) scale(1.3); }
+            100% { transform: rotate(0deg) translateY(0px) scale(1); }
+          }
+          .animate-crash { animation: crash 1s cubic-bezier(.68,-0.55,.27,1.55); }
         `}
       </style>
 
@@ -385,7 +397,7 @@ const Dashboard = () => {
 
             {/* Content Area */}
             <div className="space-y-6">
-              {activeTab === 'posts' && user.posts.map((post, index) => (
+              {activeTab === 'posts' && !postDeleted && user.posts.map((post, index) => (
                 <div 
                   key={post.id} 
                   className="bg-space-navy rounded-lg p-6 border border-space-purple hover-card relative"
@@ -406,7 +418,17 @@ const Dashboard = () => {
                     <div className="flex-1">
                       <div className="flex items-center justify-between">
                         <h3 className="font-orbitron" style={styles.gradientText}>{user.name}</h3>
-                        <span className="text-sm text-gray-400">2h ago</span>
+                        <div className="flex flex-col items-end">
+                          <span className="text-sm text-gray-400 mb-1">2h ago</span>
+                          <button
+                            className="text-gray-400 hover:text-space-purple p-2 rounded-full z-20"
+                            onClick={() => setShowMenu(!showMenu)}
+                            data-tooltip="More"
+                            style={{ marginTop: 0 }}
+                          >
+                            <FaEllipsisV className="text-xl" />
+                          </button>
+                        </div>
                       </div>
                       {post.image && (
                         <img src={post.image} alt="Post" className="w-full max-w-md rounded-lg mt-4 mb-2 object-cover" />
