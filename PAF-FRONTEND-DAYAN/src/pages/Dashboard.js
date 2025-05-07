@@ -17,7 +17,7 @@ const Dashboard = () => {
 
   const user = {
     name: "Astro Explorer",
-    profilePic: "https://via.placeholder.com/150",
+    profilePic: "https://i.pravatar.cc/150?img=45",
     summary: "Passionate about exploring the cosmos and sharing astronomical knowledge. Currently learning about deep space objects and astrophotography.",
     skills: ["Telescope Operation", "Astrophotography", "Star Mapping"],
     progress: 75,
@@ -269,7 +269,7 @@ const Dashboard = () => {
                       >
                         <div className="relative">
                           <img 
-                            src={`https://via.placeholder.com/50?text=User${index + 1}`}
+                            src={`https://i.pravatar.cc/50?img=${index + 10}`}
                             alt="User"
                             className="w-12 h-12 rounded-full"
                           />
