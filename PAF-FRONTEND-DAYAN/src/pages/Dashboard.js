@@ -194,14 +194,13 @@ const Dashboard = () => {
           }
           @keyframes fade-in { from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: none; } }
           .animate-fade-in { animation: fade-in 0.2s ease; }
-          @keyframes crash {
-            0% { transform: rotate(-10deg) translateY(-10px) scale(1.1); }
-            30% { transform: rotate(10deg) translateY(10px) scale(1.2); }
-            60% { transform: rotate(-15deg) translateY(-5px) scale(1.1); }
-            80% { transform: rotate(0deg) translateY(0px) scale(1.3); }
-            100% { transform: rotate(0deg) translateY(0px) scale(1); }
+          @keyframes rocket-blast {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            60% { transform: translateY(-40px) scale(1.2); opacity: 1; }
+            80% { transform: translateY(-80px) scale(1.1); opacity: 0.8; }
+            100% { transform: translateY(-120px) scale(0.9); opacity: 0; }
           }
-          .animate-crash { animation: crash 1s cubic-bezier(.68,-0.55,.27,1.55); }
+          .animate-rocket-blast { animation: rocket-blast 1.2s cubic-bezier(.68,-0.55,.27,1.55); }
         `}
       </style>
 
@@ -409,6 +408,8 @@ const Dashboard = () => {
                       <FaMeteor className="text-space-purple text-xl animate-spin" />
                     </div>
                   )}
+                  {/* Timer at bottom-right corner */}
+                  <span className="absolute bottom-4 right-5 text-sm text-gray-400 z-40">2h ago</span>
                   <div className="flex items-start space-x-4">
                     <img 
                       src={user.profilePic} 
@@ -418,17 +419,6 @@ const Dashboard = () => {
                     <div className="flex-1">
                       <div className="flex items-center justify-between">
                         <h3 className="font-orbitron" style={styles.gradientText}>{user.name}</h3>
-                        <div className="flex flex-col items-end">
-                          <span className="text-sm text-gray-400 mb-1">2h ago</span>
-                          <button
-                            className="text-gray-400 hover:text-space-purple p-2 rounded-full z-20"
-                            onClick={() => setShowMenu(!showMenu)}
-                            data-tooltip="More"
-                            style={{ marginTop: 0 }}
-                          >
-                            <FaEllipsisV className="text-xl" />
-                          </button>
-                        </div>
                       </div>
                       {post.image && (
                         <img src={post.image} alt="Post" className="w-full max-w-md rounded-lg mt-4 mb-2 object-cover" />
@@ -488,6 +478,32 @@ const Dashboard = () => {
                           <span>{commentCount > 0 ? commentCount : ''}</span>
                         </button>
                       </div>
+                      {/* 3-dot menu (moved back to post card container) */}
+                      <button
+                        className="absolute top-4 right-4 text-gray-400 hover:text-space-purple p-2 rounded-full z-30"
+                        onClick={() => setShowMenu(!showMenu)}
+                        data-tooltip="More"
+                      >
+                        <FaEllipsisV className="text-xl" />
+                      </button>
+                      {showMenu && (
+                        <div className="absolute top-12 right-4 bg-gray-900 border border-space-purple rounded-lg shadow-lg z-40 flex flex-col animate-fade-in">
+                          <button
+                            className="flex items-center px-4 py-2 text-gray-300 hover:text-space-purple transition-colors group"
+                            onClick={() => { setShowMenu(false); /* update logic here */ }}
+                            data-tooltip="Update"
+                          >
+                            <FaEdit className="mr-2 group-hover:animate-bounce" /> Update
+                          </button>
+                          <button
+                            className="flex items-center px-4 py-2 text-red-400 hover:text-red-600 transition-colors group"
+                            onClick={() => { setShowMenu(false); setShowDeleteDialog(true); }}
+                            data-tooltip="Delete"
+                          >
+                            <FaTrash className="mr-2 group-hover:animate-rocket-blast" /> Delete
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -556,6 +572,29 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      {showDeleteDialog && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-60">
+          <div className="bg-space-navy border border-space-purple rounded-xl shadow-2xl p-8 relative animate-fade-in" style={{ minWidth: 340 }}>
+            <div className="flex flex-col items-center">
+              <FaRocket className="text-5xl text-space-purple mb-2 animate-rocket-blast" />
+              <h2 className="text-xl font-orbitron mb-2 text-white">Delete Post?</h2>
+              <p className="text-gray-300 mb-4 text-center">Are you sure you want to delete this post? This action cannot be undone.</p>
+              <div className="flex space-x-4">
+                <button
+                  className="px-4 py-2 bg-gray-700 rounded text-gray-200 hover:bg-gray-600"
+                  onClick={() => setShowDeleteDialog(false)}
+                >Cancel</button>
+                <button
+                  className="px-4 py-2 bg-red-600 rounded text-white hover:bg-red-700 flex items-center"
+                  onClick={() => { setShowDeleteDialog(false); setPostDeleted(true); }}
+                >
+                  <FaRocket className="mr-2 animate-rocket-blast" /> Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
