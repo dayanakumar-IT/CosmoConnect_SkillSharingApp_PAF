@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaRegCommentDots, FaShare, FaEllipsisH, FaBookmark, FaRegBookmark, FaUserPlus, FaCalendarAlt } from 'react-icons/fa';
+import { FaRegCommentDots, FaShare, FaEllipsisH, FaBookmark, FaRegBookmark, FaUserPlus, FaCalendarAlt, FaBell } from 'react-icons/fa';
 
 const posts = [
   {
@@ -210,24 +210,47 @@ const Explore = () => {
           {/* Upcoming Space Events */}
           <div className="bg-space-navy border border-space-purple rounded-xl shadow-lg p-5">
             <h3 className="text-lg font-orbitron text-space-purple mb-4">Upcoming Space Events</h3>
-            {spaceEvents.map(event => (
-              <div key={event.title} className="flex items-start mb-4 last:mb-0">
-                <div className="flex flex-col items-center mr-3">
-                  <span className="bg-space-purple text-white rounded-full px-3 py-1 text-xs font-bold mb-1">{event.date}</span>
-                  <FaCalendarAlt className="text-space-purple text-lg" />
+            <div className="relative pl-4 border-l-2 border-space-purple">
+              {spaceEvents.map((event, idx) => (
+                <div
+                  key={event.title}
+                  className="group flex items-start mb-8 last:mb-0 relative hover:shadow-lg hover:bg-gray-900 transition-all rounded-lg p-3"
+                  style={{ marginLeft: '-16px' }}
+                >
+                  {/* Timeline dot and animated icon */}
+                  <div className="flex flex-col items-center mr-4">
+                    <span className="relative flex h-8 w-8">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-space-purple opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-8 w-8 bg-space-purple items-center justify-center">
+                        <FaCalendarAlt className="text-white text-lg" />
+                      </span>
+                    </span>
+                    <span className="bg-space-purple text-white rounded-full px-3 py-1 text-xs font-bold mt-2 shadow-md border-2 border-white">{event.date}</span>
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-white font-semibold text-base mb-1 group-hover:text-space-purple transition-colors">{event.title}</div>
+                    <div className="text-xs text-gray-400 mb-2">{event.desc}</div>
+                    <button className="flex items-center px-3 py-1 bg-space-purple text-white rounded-lg text-xs font-bold hover:bg-opacity-90 transition-all shadow-md">
+                      <FaBell className="mr-1 animate-bounce" /> Remind Me
+                    </button>
+                  </div>
                 </div>
-                <div>
-                  <div className="text-white font-semibold">{event.title}</div>
-                  <div className="text-xs text-gray-400">{event.desc}</div>
-                </div>
-              </div>
-            ))}
+              ))}
+              {/* Vertical timeline line */}
+              <span className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-space-purple to-transparent opacity-40 rounded-full" style={{ zIndex: 0 }}></span>
+            </div>
           </div>
         </div>
       </div>
       <style>{`
         @keyframes fade-in { from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: none; } }
         .animate-fade-in { animation: fade-in 0.2s ease; }
+        .bg-space-navy .animate-ping {
+          animation: ping 1.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+        @keyframes ping {
+          75%, 100% { transform: scale(1.5); opacity: 0; }
+        }
       `}</style>
     </div>
   );
