@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { FaUserAstronaut, FaRocket, FaStar, FaCompass, FaChartLine, FaUsers, FaPlus, FaGlobe, FaMoon, FaSatellite, FaSpaceShuttle, FaMeteor, FaAtom, FaImage } from 'react-icons/fa';
+import { FaUserAstronaut, FaRocket, FaStar, FaCompass, FaChartLine, FaUsers, FaPlus, FaGlobe, FaMoon, FaSatellite, FaSpaceShuttle, FaMeteor, FaAtom, FaImage, FaPoll } from 'react-icons/fa';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('posts');
   const [newPost, setNewPost] = useState('');
   const [hoverCard, setHoverCard] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedMedia, setSelectedMedia] = useState(null);
+  const [mediaType, setMediaType] = useState(null);
+  const [collaborate, setCollaborate] = useState(false);
+  const [showPollBuilder, setShowPollBuilder] = useState(false);
+  const [pollOptions, setPollOptions] = useState(['', '']);
 
   // Internal styles for space effects
   const styles = {
@@ -30,15 +34,31 @@ const Dashboard = () => {
     ]
   };
 
-  const handleImageUpload = (e) => {
+  const handleMediaUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setSelectedImage(reader.result);
+        setSelectedMedia(reader.result);
+        setMediaType(file.type.startsWith('video/') ? 'video' : 'image');
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handlePollOptionChange = (index, value) => {
+    const newOptions = [...pollOptions];
+    newOptions[index] = value;
+    setPollOptions(newOptions);
+  };
+
+  const addPollOption = () => {
+    setPollOptions([...pollOptions, '']);
+  };
+
+  const removePollOption = (index) => {
+    const newOptions = pollOptions.filter((_, i) => i !== index);
+    setPollOptions(newOptions);
   };
 
   return (
@@ -167,20 +187,51 @@ const Dashboard = () => {
                         <FaSatellite className="text-xl text-space-purple" />
                       </button>
                       <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110">
-                        <input type="file" accept="image/*" className="hidden" id="imageUpload" onChange={(e) => handleImageUpload(e)} />
-                        <label htmlFor="imageUpload" className="cursor-pointer">
+                        <input type="file" accept="image/*,video/*" className="hidden" id="mediaUpload" onChange={(e) => handleMediaUpload(e)} />
+                        <label htmlFor="mediaUpload" className="cursor-pointer">
                           <FaImage className="text-xl text-space-purple" />
                         </label>
                       </button>
+                      <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110" onClick={() => setShowPollBuilder(!showPollBuilder)}>
+                        <FaPoll className="text-xl text-space-purple" />
+                      </button>
                     </div>
-                    <button className="px-4 py-2 bg-space-purple rounded-lg hover:bg-opacity-90 transition-all duration-300 hover:scale-105 flex items-center space-x-2">
-                      <FaRocket className="text-lg animate-bounce" />
-                      <span>Launch Post</span>
-                    </button>
+                    <div className="flex items-center space-x-4">
+                      <label className="flex items-center space-x-2">
+                        <input type="checkbox" checked={collaborate} onChange={(e) => setCollaborate(e.target.checked)} className="form-checkbox h-5 w-5 text-space-purple" />
+                        <span className="text-gray-300">Collaborate</span>
+                      </label>
+                      <button className="px-4 py-2 bg-space-purple rounded-lg hover:bg-opacity-90 transition-all duration-300 hover:scale-105 flex items-center space-x-2">
+                        <FaRocket className="text-lg animate-bounce" />
+                        <span>Launch Post</span>
+                      </button>
+                    </div>
                   </div>
-                  {selectedImage && (
+                  {selectedMedia && (
                     <div className="mt-4">
-                      <img src={selectedImage} alt="Selected" className="w-full h-40 object-cover rounded-lg" />
+                      {mediaType === 'image' ? (
+                        <img src={selectedMedia} alt="Selected" className="w-full h-40 object-cover rounded-lg" />
+                      ) : (
+                        <video src={selectedMedia} controls className="w-full h-40 object-cover rounded-lg" />
+                      )}
+                    </div>
+                  )}
+                  {showPollBuilder && (
+                    <div className="mt-4 p-4 bg-gray-800 rounded-lg">
+                      <h3 className="text-lg font-orbitron mb-2">Create a Poll</h3>
+                      {pollOptions.map((option, index) => (
+                        <div key={index} className="flex items-center space-x-2 mb-2">
+                          <input
+                            type="text"
+                            value={option}
+                            onChange={(e) => handlePollOptionChange(index, e.target.value)}
+                            placeholder={`Option ${index + 1}`}
+                            className="w-full p-2 bg-gray-700 rounded"
+                          />
+                          <button onClick={() => removePollOption(index)} className="p-2 text-red-500">Remove</button>
+                        </div>
+                      ))}
+                      <button onClick={addPollOption} className="mt-2 p-2 bg-space-purple rounded">Add Option</button>
                     </div>
                   )}
                 </div>
