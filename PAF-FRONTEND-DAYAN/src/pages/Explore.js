@@ -228,19 +228,33 @@ const Explore = () => {
               )}
             </div>
           </div>
-          {/* Daily Space Challenge */}
-          <div className="bg-space-navy border border-space-purple rounded-xl shadow-lg p-5 relative overflow-hidden mt-4">
-            <div className="flex items-center mb-3">
-              <FaRocket className="text-space-purple animate-float-slow mr-2" size={22} />
-              <h3 className="text-lg font-orbitron text-space-purple">Daily Space Challenge</h3>
+          {/* Daily Space Challenge - Unique Circular Badge UI */}
+          <div className="flex flex-col items-center justify-center mt-4">
+            <div className="relative flex flex-col items-center justify-center">
+              {/* Glowing animated border */}
+              <div className="absolute rounded-full w-44 h-44 bg-gradient-to-tr from-space-purple via-space-blue to-yellow-400 opacity-60 animate-glow-badge z-0" />
+              {/* Main circle */}
+              <div className="relative w-40 h-40 bg-gradient-to-br from-space-navy via-gray-900 to-space-purple rounded-full shadow-2xl flex flex-col items-center justify-center z-10 border-4 border-space-purple">
+                <FaRocket className="text-space-purple animate-float-slow mb-2" size={38} />
+                <h3 className="text-base font-orbitron text-space-purple mb-2">Daily Space Challenge</h3>
+                <div className="text-white text-center font-semibold px-4" style={{ lineHeight: '1.3' }}>
+                  {spaceChallenges[Math.floor((Date.now()/8.64e7)%spaceChallenges.length)]}
+                </div>
+              </div>
             </div>
-            <div className="flex items-center text-white font-semibold text-center min-h-[48px]">
-              <FaStar className="mr-2 animate-spin text-yellow-400" size={18} />
-              <span>{spaceChallenges[Math.floor((Date.now()/8.64e7)%spaceChallenges.length)]}</span>
-            </div>
-            <div className="absolute right-3 bottom-2 opacity-20">
-              <FaMoon className="animate-float-medium text-gray-300" size={28} />
-            </div>
+            <button
+              className="mt-4 px-4 py-2 bg-gradient-to-r from-space-purple to-space-blue text-white rounded-full font-bold shadow-lg hover:scale-105 transition-all border-2 border-space-purple"
+              onClick={() => window.location.reload()}
+            >
+              <FaStar className="mr-2 animate-spin text-yellow-400 inline" /> Spin for New Challenge
+            </button>
+            <style>{`
+              @keyframes glow-badge {
+                0%, 100% { box-shadow: 0 0 32px 8px #bb86fc44, 0 0 0 0 #fff0; }
+                50% { box-shadow: 0 0 48px 16px #bb86fc99, 0 0 0 0 #fff0; }
+              }
+              .animate-glow-badge { animation: glow-badge 2.5s ease-in-out infinite; }
+            `}</style>
           </div>
         </div>
         {/* Feed */}
