@@ -21,3 +21,4 @@ setup project structure and install dependencies
 
 implement landing page UI layout
 add responsive user profile card component
+create user dashboard page
