@@ -29,3 +29,4 @@ cleaned up margins between form sections
 added border and shadows to course form
 styled empty course list message
 applied card layout to course list items
+improved checkbox and dropdown style
