@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaRegCommentDots, FaShare, FaEllipsisH, FaBookmark, FaRegBookmark, FaUserPlus, FaCalendarAlt, FaBell, FaRocket, FaStar, FaGlobe, FaMoon } from 'react-icons/fa';
+import { FaRegCommentDots, FaShare, FaEllipsisH, FaBookmark, FaRegBookmark, FaUserPlus, FaCalendarAlt, FaBell, FaRocket, FaStar, FaGlobe, FaMoon, FaTrash } from 'react-icons/fa';
 
 const posts = [
   {
@@ -225,6 +225,12 @@ const Explore = () => {
     setCommentInputs(newInputs);
   };
 
+  const handleDeleteComment = (postIdx, commentId) => {
+    const newComments = [...comments];
+    newComments[postIdx] = newComments[postIdx].filter(c => c.id !== commentId);
+    setComments(newComments);
+  };
+
   return (
     <div className="min-h-screen bg-space-dark pt-20 pb-10">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
@@ -447,7 +453,16 @@ const Explore = () => {
                         <div key={c.id} className="flex items-center mb-2">
                           <img src={c.user.avatar} alt={c.user.name} className="w-7 h-7 rounded-full mr-2 border border-space-purple" />
                           <span className="text-white font-semibold mr-2">{c.user.name}</span>
-                          <span className="text-gray-300">{c.text}</span>
+                          <span className="text-gray-300 mr-2">{c.text}</span>
+                          {c.user.name === 'You' && (
+                            <button
+                              onClick={() => handleDeleteComment(idx, c.id)}
+                              className="text-red-400 hover:text-red-600 ml-1"
+                              title="Delete Comment"
+                            >
+                              <FaTrash />
+                            </button>
+                          )}
                         </div>
                       ))}
                     </div>
