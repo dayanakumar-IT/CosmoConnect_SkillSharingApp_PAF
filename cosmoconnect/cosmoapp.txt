@@ -19,3 +19,4 @@ Fixed bug in plan topic association
 initialize frontend for CosmoConnect app
 setup project structure and install dependencies
 
+implement landing page UI layout
