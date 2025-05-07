@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaUserAstronaut, FaRocket, FaStar, FaCompass, FaChartLine, FaUsers, FaPlus, FaGlobe, FaMoon, FaSatellite, FaSpaceShuttle, FaMeteor, FaAtom, FaImage, FaPoll } from 'react-icons/fa';
+import { FaUserAstronaut, FaRocket, FaStar, FaCompass, FaChartLine, FaUsers, FaPlus, FaGlobe, FaMoon, FaSatellite, FaSpaceShuttle, FaMeteor, FaAtom, FaImage, FaPoll, FaTrash } from 'react-icons/fa';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('posts');
@@ -177,23 +177,23 @@ const Dashboard = () => {
                   />
                   <div className="flex justify-between items-center mt-4">
                     <div className="flex space-x-4">
-                      <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110">
-                        <FaGlobe className="text-xl text-space-purple" />
+                      <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110" title="Globe">
+                        <FaGlobe className="text-xl text-white" />
                       </button>
-                      <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110">
-                        <FaMoon className="text-xl text-space-purple" />
+                      <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110" title="Moon">
+                        <FaMoon className="text-xl text-white" />
                       </button>
-                      <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110">
-                        <FaSatellite className="text-xl text-space-purple" />
+                      <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110" title="Satellite">
+                        <FaSatellite className="text-xl text-white" />
                       </button>
-                      <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110">
+                      <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110" title="Upload Media">
                         <input type="file" accept="image/*,video/*" className="hidden" id="mediaUpload" onChange={(e) => handleMediaUpload(e)} />
                         <label htmlFor="mediaUpload" className="cursor-pointer">
-                          <FaImage className="text-xl text-space-purple" />
+                          <FaImage className="text-xl text-white" />
                         </label>
                       </button>
-                      <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110" onClick={() => setShowPollBuilder(!showPollBuilder)}>
-                        <FaPoll className="text-xl text-space-purple" />
+                      <button className="p-2 rounded-full hover:bg-gray-800 transition-transform hover:scale-110" onClick={() => setShowPollBuilder(!showPollBuilder)} title="Create Poll">
+                        <FaPoll className="text-xl text-white" />
                       </button>
                     </div>
                     <div className="flex items-center space-x-4">
@@ -217,8 +217,8 @@ const Dashboard = () => {
                     </div>
                   )}
                   {showPollBuilder && (
-                    <div className="mt-4 p-4 bg-gray-800 rounded-lg">
-                      <h3 className="text-lg font-orbitron mb-2">Create a Poll</h3>
+                    <div className="mt-4 p-4 bg-gray-800 rounded-lg shadow-lg">
+                      <h3 className="text-lg font-orbitron mb-2 text-white">Create a Poll</h3>
                       {pollOptions.map((option, index) => (
                         <div key={index} className="flex items-center space-x-2 mb-2">
                           <input
@@ -226,12 +226,14 @@ const Dashboard = () => {
                             value={option}
                             onChange={(e) => handlePollOptionChange(index, e.target.value)}
                             placeholder={`Option ${index + 1}`}
-                            className="w-full p-2 bg-gray-700 rounded"
+                            className="w-full p-2 bg-gray-700 rounded text-white"
                           />
-                          <button onClick={() => removePollOption(index)} className="p-2 text-red-500">Remove</button>
+                          <button onClick={() => removePollOption(index)} className="p-2 text-red-500" title="Remove Option">
+                            <FaTrash className="text-xl" />
+                          </button>
                         </div>
                       ))}
-                      <button onClick={addPollOption} className="mt-2 p-2 bg-space-purple rounded">Add Option</button>
+                      <button onClick={addPollOption} className="mt-2 p-2 bg-space-purple rounded text-white">Add Option</button>
                     </div>
                   )}
                 </div>
