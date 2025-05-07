@@ -111,7 +111,6 @@ const spaceChallenges = [
   'Share a fun fact about a galaxy you love.',
   'Try to identify the phase of the Moon tonight.',
   'Find and share a news article about a recent space mission.',
-  'Observe the International Space Station if it passes over your area.',
   'Share your favorite astronomy app or tool.',
   'Write a short poem about the stars.',
   'Share a picture of your telescope or binoculars setup.',
@@ -240,9 +239,9 @@ const Explore = () => {
               <div className="absolute rounded-full w-44 h-44 bg-gradient-to-tr from-space-purple via-space-blue to-yellow-400 opacity-60 animate-glow-badge z-0" />
               {/* Main circle with only challenge text */}
               <div className="relative w-40 h-40 bg-gradient-to-br from-space-navy via-gray-900 to-space-purple rounded-full shadow-2xl flex items-center justify-center z-10 border-4 border-space-purple">
-                <div className="text-white text-center font-semibold px-6" style={{ lineHeight: '1.4', fontSize: '1.1rem' }}>
+                <span className="text-white text-center font-semibold px-6" style={{ lineHeight: '1.4', fontSize: '1.1rem' }}>
                   {spaceChallenges[Math.floor((Date.now()/8.64e7)%spaceChallenges.length)]}
-                </div>
+                </span>
               </div>
             </div>
             <button
