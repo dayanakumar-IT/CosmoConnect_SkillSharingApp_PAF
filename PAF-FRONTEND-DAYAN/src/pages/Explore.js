@@ -48,6 +48,7 @@ const emojiReactions = [
   { label: 'Love', emoji: '❤️', color: 'text-red-400' },
   { label: 'Celebrate', emoji: '🎉', color: 'text-yellow-400' },
   { label: 'Starstruck', emoji: '🤩', color: 'text-purple-400' },
+  { label: 'Rocket', emoji: '🚀', color: 'text-green-400' },
 ];
 
 const Explore = () => {
@@ -58,6 +59,13 @@ const Explore = () => {
   const handleReaction = (idx, reaction) => {
     const newReactions = [...reactions];
     newReactions[idx] = reaction;
+    setReactions(newReactions);
+    setShowPicker(posts.map(() => false));
+  };
+
+  const handleRemoveReaction = (idx) => {
+    const newReactions = [...reactions];
+    newReactions[idx] = null;
     setReactions(newReactions);
     setShowPicker(posts.map(() => false));
   };
@@ -114,6 +122,14 @@ const Explore = () => {
                           {reaction.emoji}
                         </button>
                       ))}
+                      {/* Remove reaction option */}
+                      <button
+                        className="mx-1 text-2xl hover:scale-125 transition-transform text-gray-400"
+                        onClick={() => handleRemoveReaction(idx)}
+                        title="Remove Reaction"
+                      >
+                        ❌
+                      </button>
                     </div>
                   )}
                 </div>
