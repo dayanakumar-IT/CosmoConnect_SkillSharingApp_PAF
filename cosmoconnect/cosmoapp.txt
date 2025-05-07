@@ -17,3 +17,5 @@ implement landing page UI layout
 add responsive user profile card component
 create user dashboard page
 update global styles and theme colors
+refine layout spacing and alignment across components
+
