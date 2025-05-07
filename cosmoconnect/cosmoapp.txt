@@ -22,3 +22,4 @@ refine layout spacing and alignment across components
 tweaked button styles to match theme
  adjusted padding and margins across components
 added hover effects to course button
+ made form inputs look consistent
