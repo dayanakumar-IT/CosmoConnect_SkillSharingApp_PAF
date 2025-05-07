@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaRegCommentDots, FaShare, FaEllipsisH, FaBookmark, FaRegBookmark, FaUserPlus, FaCalendarAlt, FaBell } from 'react-icons/fa';
+import { FaRegCommentDots, FaShare, FaEllipsisH, FaBookmark, FaRegBookmark, FaUserPlus, FaCalendarAlt, FaBell, FaRocket, FaStar, FaGlobe, FaMoon } from 'react-icons/fa';
 
 const posts = [
   {
@@ -70,11 +70,51 @@ const spaceEvents = [
   { date: 'Sep 18', title: 'Neptune at Opposition', desc: 'Neptune is closest to Earth and fully illuminated.' },
 ];
 
+// Astronomy facts and quiz questions
+const astronomyFacts = [
+  'A day on Venus is longer than a year on Venus.',
+  'Neutron stars can spin at a rate of 600 rotations per second.',
+  'There are more trees on Earth than stars in the Milky Way.',
+  'The footprints on the Moon will be there for millions of years.',
+  'Jupiter has 80 known moons.',
+  'A spoonful of a neutron star weighs about a billion tons.',
+  'The Sun makes up 99.8% of the mass in our solar system.'
+];
+
+const quizQuestions = [
+  {
+    question: 'Which planet is known as the Red Planet?',
+    options: ['Venus', 'Mars', 'Jupiter', 'Saturn'],
+    answer: 'Mars',
+  },
+  {
+    question: 'What is the largest planet in our solar system?',
+    options: ['Earth', 'Jupiter', 'Saturn', 'Neptune'],
+    answer: 'Jupiter',
+  },
+  {
+    question: 'How many planets are in our solar system?',
+    options: ['7', '8', '9', '10'],
+    answer: '8',
+  },
+  {
+    question: 'What is the closest star to Earth?',
+    options: ['Alpha Centauri', 'Betelgeuse', 'The Sun', 'Sirius'],
+    answer: 'The Sun',
+  },
+];
+
 const Explore = () => {
   const [reactions, setReactions] = useState(posts.map(() => null));
   const [showPicker, setShowPicker] = useState(posts.map(() => false));
   const [saved, setSaved] = useState(posts.map(() => false));
   const [followed, setFollowed] = useState(suggestedUsers.map(() => false));
+  // Mini Space Quiz/Fact state
+  const [showQuiz, setShowQuiz] = useState(Math.random() > 0.5);
+  const [factIdx] = useState(Math.floor(Math.random() * astronomyFacts.length));
+  const [quizIdx] = useState(Math.floor(Math.random() * quizQuestions.length));
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [quizResult, setQuizResult] = useState(null);
 
   const handleReaction = (idx, reaction) => {
     const newReactions = [...reactions];
@@ -107,9 +147,65 @@ const Explore = () => {
     setFollowed(newFollowed);
   };
 
+  const handleQuizOption = (option) => {
+    setSelectedOption(option);
+    setQuizResult(option === quizQuestions[quizIdx].answer ? 'correct' : 'incorrect');
+    setTimeout(() => {
+      setQuizResult(null);
+      setSelectedOption(null);
+      // Optionally, show a new quiz/fact
+    }, 1800);
+  };
+
   return (
     <div className="min-h-screen bg-space-dark pt-20 pb-10">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
+        {/* Left Sidebar: Mini Space Quiz or Daily Fact */}
+        <div className="w-full lg:w-80 flex flex-col gap-8 mt-8 lg:mt-0">
+          <div className="bg-space-navy border border-space-purple rounded-xl shadow-lg p-5 relative overflow-hidden">
+            {/* Floating space icons */}
+            <FaRocket className="absolute left-2 top-2 text-space-purple animate-float-slow" size={28} />
+            <FaStar className="absolute right-4 top-8 text-yellow-400 animate-float-fast" size={20} />
+            <FaGlobe className="absolute left-8 bottom-6 text-blue-400 animate-float-medium" size={22} />
+            <FaMoon className="absolute right-8 bottom-4 text-gray-300 animate-float-medium" size={22} />
+            <h3 className="text-lg font-orbitron text-space-purple mb-4">{showQuiz ? 'Mini Space Quiz' : 'Astronomy Fact'}</h3>
+            {showQuiz ? (
+              <>
+                <div className="text-white font-semibold mb-3">{quizQuestions[quizIdx].question}</div>
+                <div className="flex flex-col gap-2">
+                  {quizQuestions[quizIdx].options.map(option => (
+                    <button
+                      key={option}
+                      onClick={() => handleQuizOption(option)}
+                      disabled={!!quizResult}
+                      className={`px-3 py-2 rounded-lg text-left font-bold transition-all border border-space-purple bg-gray-800 text-white hover:bg-space-purple hover:text-white ${selectedOption === option ? (quizResult === 'correct' ? 'bg-green-500 text-white' : 'bg-red-500 text-white') : ''}`}
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </div>
+                {quizResult && (
+                  <div className="mt-4 flex items-center justify-center">
+                    {quizResult === 'correct' ? (
+                      <span className="flex items-center text-green-400 font-bold animate-bounce">
+                        <FaStar className="mr-2 animate-spin" /> Correct!
+                      </span>
+                    ) : (
+                      <span className="flex items-center text-red-400 font-bold animate-pulse">
+                        <FaRocket className="mr-2 animate-float-fast" /> Try Again!
+                      </span>
+                    )}
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="text-white font-semibold flex items-center min-h-[60px]">
+                <FaStar className="mr-2 animate-spin text-yellow-400" />
+                {astronomyFacts[factIdx]}
+              </div>
+            )}
+          </div>
+        </div>
         {/* Feed */}
         <div className="flex-1 max-w-xl mx-auto space-y-8">
           {posts.map((post, idx) => (
@@ -250,6 +346,27 @@ const Explore = () => {
         }
         @keyframes ping {
           75%, 100% { transform: scale(1.5); opacity: 0; }
+        }
+        .animate-float-slow {
+          animation: float-slow 4s ease-in-out infinite alternate;
+        }
+        .animate-float-medium {
+          animation: float-medium 2.8s ease-in-out infinite alternate;
+        }
+        .animate-float-fast {
+          animation: float-fast 1.5s ease-in-out infinite alternate;
+        }
+        @keyframes float-slow {
+          0% { transform: translateY(0px); }
+          100% { transform: translateY(-18px); }
+        }
+        @keyframes float-medium {
+          0% { transform: translateY(0px); }
+          100% { transform: translateY(-10px); }
+        }
+        @keyframes float-fast {
+          0% { transform: translateY(0px); }
+          100% { transform: translateY(-6px); }
         }
       `}</style>
     </div>
