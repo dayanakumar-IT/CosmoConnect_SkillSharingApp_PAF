@@ -23,3 +23,4 @@ implement landing page UI layout
 add responsive user profile card component
 create user dashboard page
 update global styles and theme colors
+olish chat UI for better readability
