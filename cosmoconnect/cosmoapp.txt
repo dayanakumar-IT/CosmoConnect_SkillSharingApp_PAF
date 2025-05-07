@@ -31,7 +31,4 @@ styled empty course list message
 applied card layout to course list items
 improved checkbox and dropdown style
 added animation on course item hover
-updated background color for course section
-styled add/edit course modal with better spacing
-styled empty course list message
-
+added consistent margin between form fields
