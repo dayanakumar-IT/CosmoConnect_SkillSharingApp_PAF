@@ -77,8 +77,8 @@ export const authService = {
   getGoogleAuthUrl: () => 
     `${OAUTH2_BASE_URL}/authorization/google?redirect_uri=http://localhost:8080/oauth2/redirect`,
   
-  getGithubAuthUrl: () => 
-    `${OAUTH2_BASE_URL}/authorization/github?redirect_uri=http://localhost:8080/oauth2/redirect`
+  getFacebookAuthUrl: () => 
+    `${OAUTH2_BASE_URL}/authorization/facebook?redirect_uri=http://localhost:8080/oauth2/redirect`
 };
 
 // User services
