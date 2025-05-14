@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { FaUserAstronaut, FaRocket, FaStar, FaCompass, FaChartLine, FaUsers, FaPlus, FaGlobe, FaMoon, FaList, FaSpaceShuttle, FaMeteor, FaAtom, FaImage, FaPoll, FaTrash, FaEllipsisV, FaEdit } from 'react-icons/fa';
+import React, { useState, useRef } from 'react';
+import { FaUserAstronaut, FaRocket, FaStar, FaCompass, FaChartLine, FaUsers, FaPlus, FaGlobe, FaMoon, FaList, FaSpaceShuttle, FaMeteor, FaAtom, FaImage, FaPoll, FaTrash, FaEllipsisV, FaEdit, FaCamera } from 'react-icons/fa';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('posts');
@@ -57,6 +57,20 @@ const Dashboard = () => {
         image: "/telescope.jpg",
       }
     ]
+  };
+
+  const [profileImage, setProfileImage] = useState(null);
+  const fileInputRef = useRef(null);
+
+  const handleProfileImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfileImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleMediaUpload = (e) => {
@@ -210,11 +224,34 @@ const Dashboard = () => {
           <div className="lg:col-span-1">
             <div className="bg-space-navy rounded-lg p-6 border border-space-purple hover-card">
               <div className="text-center relative">
-                <img 
-                  src={user.profilePic} 
-                  alt="Profile" 
-                  className="w-32 h-32 rounded-full mx-auto border-2 border-space-purple relative z-10"
-                />
+                {/* Profile image selector with camera icon */}
+                <div
+                  className="relative w-32 h-32 rounded-full mx-auto bg-gray-800 flex items-center justify-center cursor-pointer group mb-2"
+                  onClick={() => fileInputRef.current && fileInputRef.current.click()}
+                  style={{ border: '2px solid #bb86fc' }}
+                >
+                  {profileImage ? (
+                    <img
+                      src={profileImage}
+                      alt="Profile Preview"
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  ) : (
+                    <span className="text-gray-500 text-6xl flex items-center justify-center w-full h-full">
+                      <FaUserAstronaut />
+                    </span>
+                  )}
+                  <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-full">
+                    <FaCamera className="text-white text-2xl" />
+                  </div>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleProfileImageChange}
+                    className="hidden"
+                  />
+                </div>
                 <h2 className="text-xl font-orbitron mt-4" style={styles.gradientText}>{user.name}</h2>
                 <p className="text-gray-400 mt-2 text-sm">{user.summary}</p>
                 <div className="mt-6">
