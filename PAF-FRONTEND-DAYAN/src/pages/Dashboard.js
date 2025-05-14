@@ -217,7 +217,6 @@ const Dashboard = () => {
                 />
                 <h2 className="text-xl font-orbitron mt-4" style={styles.gradientText}>{user.name}</h2>
                 <p className="text-gray-400 mt-2 text-sm">{user.summary}</p>
-                
                 <div className="mt-6">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm text-gray-400">Learning Progress</span>
@@ -230,7 +229,6 @@ const Dashboard = () => {
                     />
                   </div>
                 </div>
-
                 <div className="mt-6 grid grid-cols-2 gap-4">
                   <div className="text-center p-3 rounded-lg bg-gray-800 hover-card">
                     <div className="text-2xl font-orbitron" style={styles.gradientText}>{user.followers}</div>
@@ -241,7 +239,6 @@ const Dashboard = () => {
                     <div className="text-sm text-gray-400">Following</div>
                   </div>
                 </div>
-
                 <div className="mt-6">
                   <h3 className="text-sm font-orbitron mb-2">Skills</h3>
                   <div className="flex flex-wrap gap-2">
