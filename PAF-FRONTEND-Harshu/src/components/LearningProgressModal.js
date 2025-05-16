@@ -350,7 +350,7 @@ const LearningProgressModal = ({ isOpen, onClose, onSubmit, editingEntry }) => {
                 const colors = [
                   '#23234d', 
                   '#2d2d6a', 
-                  '#3b3b8f', // 3
+                  '#3b3b8f', 
                   '#4f46e5', // 4
                   '#7c3aed', // 5
                   '#a084f3', // 6
