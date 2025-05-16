@@ -47,7 +47,7 @@ const Navbar = () => {
     setShowDropdown(!showDropdown);
   };
 
-  // Internal styles for star effects
+  
   const styles = {
     starContainer: {
       position: 'absolute',
