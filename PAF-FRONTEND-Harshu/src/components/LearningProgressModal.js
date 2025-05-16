@@ -356,7 +356,7 @@ const LearningProgressModal = ({ isOpen, onClose, onSubmit, editingEntry }) => {
                   '#a084f3', 
                   '#c084fc', 
                   '#eab308', 
-                  '#fbbf24', // 9
+                  '#fbbf24', 
                   '#f59e42', // 10
                 ];
                 const sliderColor = colors[stage-1] || '#23234d';
