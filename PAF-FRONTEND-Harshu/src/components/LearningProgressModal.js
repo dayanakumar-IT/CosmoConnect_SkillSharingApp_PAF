@@ -342,7 +342,7 @@ const LearningProgressModal = ({ isOpen, onClose, onSubmit, editingEntry }) => {
                   '🌖', 
                   '🌗', 
                   '🌘', 
-                  '🌙', // 9 - Crescent
+                  '🌙', 
                   '⭐', // 10 - Star (completion)
                 ];
                 const phase = phases[stage-1] || '🌑';
