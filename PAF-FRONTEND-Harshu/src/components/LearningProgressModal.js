@@ -334,7 +334,7 @@ const LearningProgressModal = ({ isOpen, onClose, onSubmit, editingEntry }) => {
                 const sentence = stageSentences[stage-1] || stageSentences[0];
                 // Moon phase emoji for each stage
                 const phases = [
-                  '🌑', // 1 - New Moon
+                  '🌑', 
                   '🌒', // 2 - Waxing Crescent
                   '🌓', // 3 - First Quarter
                   '🌔', // 4 - Waxing Gibbous
