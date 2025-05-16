@@ -341,7 +341,7 @@ const LearningProgressModal = ({ isOpen, onClose, onSubmit, editingEntry }) => {
                   '🌕', 
                   '🌖', 
                   '🌗', 
-                  '🌘', // 8 - Waning Crescent
+                  '🌘', 
                   '🌙', // 9 - Crescent
                   '⭐', // 10 - Star (completion)
                 ];
