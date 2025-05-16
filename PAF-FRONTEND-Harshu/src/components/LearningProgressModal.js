@@ -343,7 +343,7 @@ const LearningProgressModal = ({ isOpen, onClose, onSubmit, editingEntry }) => {
                   '🌗', 
                   '🌘', 
                   '🌙', 
-                  '⭐', // 10 - Star (completion)
+                  '⭐', 
                 ];
                 const phase = phases[stage-1] || '🌑';
                 // Color stops for slider
