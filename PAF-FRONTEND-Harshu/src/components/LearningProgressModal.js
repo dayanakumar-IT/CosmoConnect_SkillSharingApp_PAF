@@ -338,7 +338,7 @@ const LearningProgressModal = ({ isOpen, onClose, onSubmit, editingEntry }) => {
                   '🌒',
                   '🌓', 
                   '🌔', 
-                  '🌕', // 5 - Full Moon
+                  '🌕', 
                   '🌖', // 6 - Waning Gibbous
                   '🌗', // 7 - Last Quarter
                   '🌘', // 8 - Waning Crescent
