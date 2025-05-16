@@ -69,7 +69,7 @@ const Navbar = () => {
     }
   };
 
-  // Generate random stars
+  
   const stars = Array.from({ length: 20 }, (_, i) => ({
     id: i,
     style: {
