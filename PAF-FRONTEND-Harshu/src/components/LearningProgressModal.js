@@ -349,7 +349,7 @@ const LearningProgressModal = ({ isOpen, onClose, onSubmit, editingEntry }) => {
                 // Color stops for slider
                 const colors = [
                   '#23234d', 
-                  '#2d2d6a', // 2
+                  '#2d2d6a', 
                   '#3b3b8f', // 3
                   '#4f46e5', // 4
                   '#7c3aed', // 5
