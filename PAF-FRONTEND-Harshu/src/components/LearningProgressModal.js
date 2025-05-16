@@ -336,7 +336,7 @@ const LearningProgressModal = ({ isOpen, onClose, onSubmit, editingEntry }) => {
                 const phases = [
                   '🌑', 
                   '🌒',
-                  '🌓', // 3 - First Quarter
+                  '🌓', 
                   '🌔', // 4 - Waxing Gibbous
                   '🌕', // 5 - Full Moon
                   '🌖', // 6 - Waning Gibbous
