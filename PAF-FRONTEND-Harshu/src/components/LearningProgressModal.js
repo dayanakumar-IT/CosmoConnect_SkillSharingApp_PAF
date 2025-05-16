@@ -351,7 +351,7 @@ const LearningProgressModal = ({ isOpen, onClose, onSubmit, editingEntry }) => {
                   '#23234d', 
                   '#2d2d6a', 
                   '#3b3b8f', 
-                  '#4f46e5', // 4
+                  '#4f46e5', 
                   '#7c3aed', // 5
                   '#a084f3', // 6
                   '#c084fc', // 7
