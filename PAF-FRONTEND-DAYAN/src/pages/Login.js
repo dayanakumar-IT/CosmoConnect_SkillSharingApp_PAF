@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { FaGoogle, FaGithub, FaRocket, FaUserAstronaut } from 'react-icons/fa';
+import { FaGoogle, FaFacebook, FaRocket, FaUserAstronaut } from 'react-icons/fa';
 import { FiMail, FiLock } from 'react-icons/fi';
 import AuthSidebar from '../components/AuthSidebar';
 import { authService } from '../api';
@@ -51,8 +51,8 @@ const Login = () => {
     window.location.href = authService.getGoogleAuthUrl();
   };
 
-  const handleGithubSignIn = () => {
-    window.location.href = authService.getGithubAuthUrl();
+  const handleFacebookSignIn = () => {
+    window.location.href = authService.getFacebookAuthUrl();
   };
 
   return (
@@ -209,7 +209,7 @@ const Login = () => {
                 <span>Google</span>
               </button>
               <button
-                onClick={handleGithubSignIn}
+                onClick={handleFacebookSignIn}
                 disabled={loading}
                 className="w-full inline-flex justify-center items-center py-3 px-4 
                   border border-gray-700 rounded-lg shadow-sm bg-gray-800 text-sm 
@@ -217,8 +217,8 @@ const Login = () => {
                   focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-all duration-150
                   disabled:opacity-50"
               >
-                <FaGithub className="w-5 h-5 mr-2 text-white" />
-                <span>GitHub</span>
+                <FaFacebook className="w-5 h-5 mr-2 text-blue-500" />
+                <span>Facebook</span>
               </button>
             </div>
           </div>
