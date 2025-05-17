@@ -1,10 +1,10 @@
 # 🚀 Space Skill Showroom & Astro-Creations 🌌  
-A space-themed skill-sharing and learning platform where users can showcase their talents in astrophotography, DIY projects, and space science, while connecting, learning, and growing together through interactive features and competitions.
+A space-themed skill-sharing and learning platform where users can showcase their talents in astrophotography, DIY projects about space, and space science, while connecting, learning, and growing together through interactive features and competitions.
 
 ---
 
 ## 🔭 Skill Sharing Posts (Space Skill Showroom)
-- 📸 Share photos or 30-second videos of space-related creations.
+- 📸 Share 03 photos or 30-second videos of space-related creations.
 - 🗂️ Tag categories like astrophotography, telescopes, or science projects.
 - 🤖 AI suggests learning resources based on uploads.
 - 🏷️ Auto-generated tags for better discovery.
@@ -16,7 +16,7 @@ A space-themed skill-sharing and learning platform where users can showcase thei
 
 ## 📘 Learning Progress Updates (Space Learning Journey)
 - 📝 Log personal learning progress with media support.
-- 🔒 Keep logs private or 🌍 make milestones public.
+- 🔒 Keep logs private or  make milestones public.
 - 🎖️ Earn badges and showcase progress in profiles.
 - 🤖 AI recommends personalized learning paths.
 - ♻️ Edit, update, or delete progress entries as needed.

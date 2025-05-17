@@ -1,0 +1,37 @@
+
+Fixed typo in learning plan title field
+Renamed planDate to scheduledDate
+
+Added missing index to userId in plans
+Fixed null check in plan controller
+
+Fixed bug in plan topic association
+Changed error code for unauthorized plan editImproved logging in plan router
+Changed error code for unauthorized plan edit
+Fixed bug in plan topic association
+
+initialize frontend for CosmoConnect app
+setup project structure and install dependencies
+
+implement landing page UI layout
+add responsive user profile card component
+create user dashboard page
+update global styles and theme colors
+refine layout spacing and alignment across components
+
+tweaked button styles to match theme
+ adjusted padding and margins across components
+added hover effects to course button
+ made form inputs look consistent
+fixed alignment issues on edit course page
+improved feedback message styling
+cleaned up margins between form sections
+added border and shadows to course form
+styled empty course list message
+applied card layout to course list items
+improved checkbox and dropdown style
+styled submit and cancel buttons on course form
+added divider between course info and action buttons
+gave course images rounded corners
+
+
